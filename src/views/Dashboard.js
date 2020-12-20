@@ -20,7 +20,7 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
-
+import { NavLink } from 'react-router-dom'
 import firebase from '../config/fbconfig';
 
 // reactstrap components
@@ -61,8 +61,7 @@ class Dashboard extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      users: [],
-      classes: []
+      users: []
     };
   };
 
@@ -81,21 +80,6 @@ class Dashboard extends React.Component {
       }
       this.setState({
         users: newState
-      });
-    });
-
-    const classesRef = firebase.database().ref('Classes');
-    classesRef.on('value', (snapshot) => {
-      let classes = snapshot.val();
-      let newClassState = [];
-      for(let classs in classes) {
-        newClassState.push({
-          id: classs,
-          //classs: classes[classs].userDetails,
-        });
-      }
-      this.setState({
-        classes: newClassState
       });
     });
   };
@@ -131,14 +115,14 @@ render(){
                       <td>{ user.userClass }</td>
                       <td>{ user.user.userRole }</td>
                       <td>
-                        <Button
+                        <NavLink to={'/admin/user-profile/'+user.id}><Button
                             color="link"
                             id="tooltip457194718"
                             title=""
                             type="button"
                           >
                             <i className="tim-icons icon-pencil" />
-                          </Button></td>
+                          </Button></NavLink></td>
                     </tr>  
                 )
               })}

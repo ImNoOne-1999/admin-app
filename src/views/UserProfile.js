@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import firebase from '../config/fbconfig';
 
 // reactstrap components
 import {
@@ -32,137 +33,222 @@ import {
   Col,
 } from "reactstrap";
 
-function UserProfile() {
+class UserProfile extends React.Component {
+  
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      users: [{
+        userClass: null,
+        user: {
+          age: null,
+          email: null,
+          fullName: null,
+          imageUrl: null,
+          phone: null,
+          userRole: null
+        },
+        userPackage: {
+          endDate: null,
+          isActive: true,
+          packageId: null,
+          sessions: null,
+          startDate: null
+        }
+      }]
+    };
+  };
+
+  handleChange = (e) =>{
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+    console.log(this.state.users[0].user);
+  }
+
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    const userRef = firebase.database().ref('Users');
+    const id = this.props.match.params.id;
+    userRef.child(id).child('userDetails').update({fullName: this.state.users[0].user.fullName });
+    console.log(this.state.users[0]);
+    this.props.history.push('/');
+  }
+
+  componentDidMount() {
+    const userRef = firebase.database().ref('Users');
+    userRef.on('value', (snapshot) => {
+      let users = snapshot.val();
+      let newState = [];
+      const id = this.props.match.params.id;
+      newState.push({
+        id: id,
+        userPackage: users[id].userPackages,
+        user: users[id].userDetails,
+        userClass: users[id].userClasses,
+      });
+      this.setState({
+        users: newState
+      });
+    });
+  };
+  render(){
   return (
     <>
       <div className="content">
+      {this.state.users.map((user) => {
+        return (
         <Row>
           <Col md="8">
             <Card>
               <CardHeader>
                 <h5 className="title">Edit Profile</h5>
               </CardHeader>
+              <form onSubmit={this.handleSubmit}>
               <CardBody>
-                <Form>
+               
                   <Row>
-                    <Col className="pr-md-1" md="5">
+                    <Col className="pr-md-1" md="12">
                       <FormGroup>
-                        <label>Company (disabled)</label>
+                        <label>Full Name</label>
                         <Input
-                          defaultValue="Creative Code Inc."
-                          disabled
-                          placeholder="Company"
+                          defaultValue={ user.user.fullName }
+                          placeholder="Full Name"
                           type="text"
+                          id="fullName"
+                          onChange={this.handleChange}
                         />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="3">
-                      <FormGroup>
-                        <label>Username</label>
-                        <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Input placeholder="mike@email.com" type="email" />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
-                        <label>First Name</label>
+                        <label htmlFor="exampleInputEmail1">
+                          Email address
+                        </label>
+                        <Input placeholder={ user.user.email } type="email" id="email"
+                          onChange={this.handleChange} />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pl-md-1" md="6">
+                      <FormGroup>
+                        <label>Phone (disabled)</label>
                         <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
+                          defaultValue={ user.user.phone }
+                          disabled
+                          placeholder="phone"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="pr-md-1" md="6">
+                      <FormGroup>
+                        <label>Age</label>
+                        <Input
+                          defaultValue={ user.user.age }
+                          id="age"
+                          onChange={this.handleChange}
+                          placeholder="Age"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="6">
                       <FormGroup>
-                        <label>Last Name</label>
+                        <label>Role</label>
                         <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          defaultValue={ user.user.userRole }
+                          placeholder="Role"
+                          id="role"
+                          onChange={this.handleChange}
                           type="text"
                         />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <FormGroup>
-                        <label>Address</label>
-                        <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-md-1" md="4">
-                      <FormGroup>
-                        <label>City</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="4">
-                      <FormGroup>
-                        <label>Country</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col md="8">
                       <FormGroup>
-                        <label>About Me</label>
+                        <label>Classes</label>
                         <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          type="textarea"
+                          defaultValue={ user.userClass }
+                          placeholder="Classes opted"
+                          id="classes"
+                          onChange={this.handleChange}
+                          type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                </Form>
-              </CardBody>
+                  {}
+                  <CardHeader>
+                  <h5 className="title">Class Packages</h5>
+                  </CardHeader>
+                  <Row>
+                  <Col className="pr-md-1" md="6">
+                    <FormGroup>
+                      <label>Start Date</label>
+                      <Input
+                        defaultValue={ user.userPackage.startDate && user.userPackage.startDate ? user.userPackage.startDate : " "}
+                        type="date"
+                        id="startDate"
+                          onChange={this.handleChange}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col className="pl-md-1" md="6">
+                    <FormGroup>
+                      <label>End Date</label>
+                      <Input
+                        defaultValue={ user.userPackage.endDate && user.userPackage.endDate ? user.userPackage.endDate : " "}
+                        type="date"
+                        id="endDate"
+                          onChange={this.handleChange}
+                      />
+                    </FormGroup>
+                  </Col>
+                  </Row>
+                  <Row>
+                  <Col className="pr-md-1" md="6">
+                    <FormGroup>
+                      <label>Package Id</label>
+                      <Input
+                        defaultValue={ user.userPackage.packageId && user.userPackage.packageId ? user.userPackage.packageId : "Package Id"}
+                        type="text"
+                        id="packageId"
+                          onChange={this.handleChange}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col className="pl-md-1" md="6">
+                    <FormGroup>
+                      <label>Sessions</label>
+                      <Input
+                        defaultValue={ user.userPackage.sessions && user.userPackage.sessions ? user.userPackage.sessions : "Sessions Req"}
+                        type="text"
+                        id="sessions"
+                          onChange={this.handleChange}
+                      />
+                    </FormGroup>
+                  </Col>
+                  </Row>
+                  </CardBody>
+                
+              
               <CardFooter>
-                <Button className="btn-fill" color="primary" type="submit">
+                <Button className="btn-fill" color="primary" type="submit" onClick={this.handleClick}>
                   Save
                 </Button>
               </CardFooter>
+              </form>
             </Card>
           </Col>
           <Col md="4">
-            <Card className="card-user">
+            {/* <Card className="card-user">
               <CardBody>
                 <CardText />
                 <div className="author">
@@ -199,12 +285,15 @@ function UserProfile() {
                   </Button>
                 </div>
               </CardFooter>
-            </Card>
+            </Card> */}
           </Col>
         </Row>
+        )
+      })}
       </div>
     </>
   );
+}
 }
 
 export default UserProfile;

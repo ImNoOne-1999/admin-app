@@ -18,8 +18,9 @@
 import React from "react";
 
 // reactstrap components
-import { Card, CardHeader,CardTitle,Table,Button, CardBody, Row, Col } from "reactstrap";
+import { Card, CardHeader,CardTitle,Table,Button,CardFooter, CardBody, Row, Col } from "reactstrap";
 import firebase from '../config/fbconfig';
+import { NavLink } from 'react-router-dom';
 
 class Icons extends React.Component {
   constructor(props){
@@ -34,11 +35,12 @@ class Icons extends React.Component {
     classesRef.on('value', (snapshot) => {
       let classes = snapshot.val();
       let newClassState = [];
+      
       for(let classs in classes) {
         newClassState.push({
           id: classs,
           classs: classes[classs].classDetails,
-          userJoined: classes[classs].userJoined
+          usersJoined: snapshot.child(classs).child("usersJoined").numChildren()
         });
       }
       this.setState({
@@ -65,6 +67,7 @@ class Icons extends React.Component {
                   <th>timings</th>
                   <th>date</th>
                   <th>capacity</th>
+                  <th>count</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,12 +80,20 @@ class Icons extends React.Component {
                       <td>{ classs.classs.timings }</td>
                       <td>{ classs.classs.date }</td>
                       <td>{ classs.classs.capacity }</td>
+                      <td>{ classs.usersJoined }</td>
                     </tr>  
                 )
               })}
               </tbody>
             </Table>
           </CardBody>
+          <CardFooter>
+          <NavLink to={'/admin/tables'}>
+            <Button className="btn-fill" color="primary" type="submit" onClick={this.handleClick}>
+              Add Class
+            </Button>
+          </NavLink>
+          </CardFooter>
         </Card>
 
         {/* <Row>

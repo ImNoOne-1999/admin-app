@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import firebase from '../config/fbconfig';
 
 // reactstrap components
 import {
@@ -24,146 +25,166 @@ import {
   CardBody,
   CardTitle,
   Table,
+  FormGroup,
+  Input,
+  CardFooter,
+  Button,
   Row,
+  Form,
   Col,
 } from "reactstrap";
 
-function Tables() {
+class Tables extends React.Component{
+
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      classes: [{
+        classDetails: {
+          coach: null,
+          description: null,
+          capacity: null,
+          timing: null,
+          date: null,
+          name: null
+        }
+      }]
+    };
+  };
+
+  handleChange = (e) =>{
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+    
+  }
+
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    const userRef = firebase.database().ref('Classes');
+    const id = this.props.match.params.id;
+    //userRef.child(id).child('userDetails').update({fullName: this.state.users[0].user.fullName });
+    //console.log(this.state.users[0]);
+    this.props.history.push('/');
+  }
+  render(){
   return (
     <>
       <div className="content">
         <Row>
           <Col md="12">
-            <Card>
+          <Card>
               <CardHeader>
-                <CardTitle tag="h4">Simple Table</CardTitle>
+                <h5 className="title">Create Class</h5>
               </CardHeader>
+              <Form>
               <CardBody>
-                <Table className="tablesorter" responsive>
-                  <thead className="text-primary">
-                    <tr>
-                      <th>Name</th>
-                      <th>Country</th>
-                      <th>City</th>
-                      <th className="text-center">Salary</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-center">$36,738</td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-center">$23,789</td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-center">$56,142</td>
-                    </tr>
-                    <tr>
-                      <td>Philip Chaney</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
-                      <td className="text-center">$38,735</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-center">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$78,615</td>
-                    </tr>
-                    <tr>
-                      <td>Jon Porter</td>
-                      <td>Portugal</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$98,615</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col md="12">
-            <Card className="card-plain">
-              <CardHeader>
-                <CardTitle tag="h4">Table on Plain Background</CardTitle>
-                <p className="category">Here is a subtitle for this table</p>
-              </CardHeader>
-              <CardBody>
-                <Table className="tablesorter" responsive>
-                  <thead className="text-primary">
-                    <tr>
-                      <th>Name</th>
-                      <th>Country</th>
-                      <th>City</th>
-                      <th className="text-center">Salary</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Dakota Rice</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                      <td className="text-center">$36,738</td>
-                    </tr>
-                    <tr>
-                      <td>Minerva Hooper</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                      <td className="text-center">$23,789</td>
-                    </tr>
-                    <tr>
-                      <td>Sage Rodriguez</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                      <td className="text-center">$56,142</td>
-                    </tr>
-                    <tr>
-                      <td>Philip Chaney</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
-                      <td className="text-center">$38,735</td>
-                    </tr>
-                    <tr>
-                      <td>Doris Greene</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                      <td className="text-center">$63,542</td>
-                    </tr>
-                    <tr>
-                      <td>Mason Porter</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$78,615</td>
-                    </tr>
-                    <tr>
-                      <td>Jon Porter</td>
-                      <td>Portugal</td>
-                      <td>Gloucester</td>
-                      <td className="text-center">$98,615</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </CardBody>
+               
+                  <Row>
+                    <Col className="pr-md-1" md="12">
+                      <FormGroup>
+                        <label>Class Name</label>
+                        <Input
+                          defaultValue=""
+                          placeholder="Full Name"
+                          type="text"
+                          id="classNameId"
+                          onChange={this.handleChange} 
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="pr-md-1" md="6">
+                      <FormGroup>
+                        <label htmlFor="exampleInputEmail1">
+                          Coach Name
+                        </label>
+                        <Input placeholder="" type="text" id="coach"
+                           />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pl-md-1" md="6">
+                      <FormGroup>
+                        <label>Capacity</label>
+                        <Input
+                          defaultValue=""
+                          
+                          placeholder="capacity"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="pr-md-1" md="6">
+                      <FormGroup>
+                        <label>Name</label>
+                        <Input
+                          defaultValue=""
+                          id="name"
+                          
+                          placeholder="Name"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pl-md-1" md="6">
+                      <FormGroup>
+                        <label>Timings</label>
+                        <Input
+                          defaultValue=""
+                          placeholder="timings"
+                          id="timing"
+                          
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                  <Col className="pr-md-1" md="6">
+                    <FormGroup>
+                      <label>Date</label>
+                      <Input
+                        defaultValue=""
+                        type="date"
+                        id="startDate"
+                          
+                      />
+                    </FormGroup>
+                  </Col>
+                  </Row>
+                  <Row>
+                  <Col className="pr-md-1" md="12">
+                    <FormGroup>
+                      <label>Description</label>
+                      <Input
+                        defaultValue=""
+                        type="textarea"
+                        id="description"
+                         
+                      />
+                    </FormGroup>
+                  </Col>
+                  </Row>
+                  </CardBody>
+                
+              
+              <CardFooter>
+                <Button className="btn-fill" color="primary" type="submit" >
+                  Create
+                </Button>
+              </CardFooter>
+              </Form>
             </Card>
           </Col>
         </Row>
       </div>
     </>
   );
+  }
 }
 
 export default Tables;

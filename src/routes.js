@@ -58,7 +58,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/user-profile",
+    path: "/user-profile/:id",
     name: "User Profile",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
