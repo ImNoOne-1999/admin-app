@@ -40,21 +40,21 @@ class UserProfile extends React.Component {
     
     this.state = {
       users: [{
-        userClass: null,
+        userClass: '',
         user: {
-          age: null,
-          email: null,
-          fullName: null,
-          imageUrl: null,
-          phone: null,
-          userRole: null
+          age: '',
+          email: '',
+          fullName: '',
+          imageUrl: '',
+          phone: '',
+          userRole: ''
         },
         userPackage: {
-          endDate: null,
-          isActive: true,
-          packageId: null,
-          sessions: null,
-          startDate: null
+          endDate: '',
+          isActive: '',
+          packageId: '',
+          sessions: '',
+          startDate: ''
         }
       }]
     };
@@ -62,6 +62,7 @@ class UserProfile extends React.Component {
 
   handleChange = (e) =>{
     this.setState({
+      ...this.state,
       [e.target.id]: e.target.value
     })
     console.log(this.state.users[0].user);
@@ -240,7 +241,7 @@ class UserProfile extends React.Component {
                 
               
               <CardFooter>
-                <Button className="btn-fill" color="primary" type="submit" onClick={this.handleClick}>
+                <Button className="btn-fill" color="primary" type="submit">
                   Save
                 </Button>
               </CardFooter>

@@ -39,7 +39,7 @@ class Icons extends React.Component {
       for(let classs in classes) {
         newClassState.push({
           id: classs,
-          classs: classes[classs].classDetails,
+          classs: classes[classs],
           usersJoined: snapshot.child(classs).child("usersJoined").numChildren()
         });
       }
