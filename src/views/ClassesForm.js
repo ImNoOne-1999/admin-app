@@ -21,18 +21,6 @@ const ClassesForm = (props) => {
 
   const history = useHistory();
 
-    const initialState = {
-      
-          classes:  [{coach: '',
-            description: '',
-            capacity: '',
-            timing: '',
-            date: '',
-            name: '',
-            userDetails: []}]
-        
-      };
-
       const [values, setValues] = useState({coach: '',
       description: '',
       capacity: '',
@@ -52,11 +40,6 @@ const ClassesForm = (props) => {
       const handleFormSubmit = (e) =>{
         e.preventDefault();
         props.callForm(values);
-        //const classesRef = firebase.database().ref('Classes');
-        //console.log(this.state);
-        //const id = this.props.match.params.id;
-        //userRef.child(id).child('userDetails').update({fullName: this.state.users[0].user.fullName });
-        //console.log(this.state.users[0]);
         history.push({ pathname: "/" });
       }
     
