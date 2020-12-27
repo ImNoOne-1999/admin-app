@@ -72,10 +72,14 @@ class Dashboard extends React.Component {
       let newState = [];
       for(let user in users) {
         newState.push({
+          // id: user,
+          // user: users[user].userDetails,
+          // userClass: users[user].userClasses,
+          // userPackage: users[user].userPackages
           id: user,
-          user: users[user].userDetails,
-          userClass: users[user].userClasses,
-          userPackage: users[user].userPackages
+          userPackages: users[user].userPackages,
+          userDetails: users[user].userDetails,
+          userClasses: users[user].userClasses,
         });
       }
       this.setState({
@@ -108,12 +112,12 @@ render(){
               {this.state.users.map((user) => {
                 return (
                     <tr>
-                      <td>{ user.user.fullName }</td>
-                      <td>{ user.user.email }</td>
-                      <td>{ user.user.age }</td>
-                      <td>{ user.user.phone }</td>
-                      <td>{ user.userClass }</td>
-                      <td>{ user.user.userRole }</td>
+                      <td>{ user.userDetails.fullName }</td>
+                      <td>{ user.userDetails.email }</td>
+                      <td>{ user.userDetails.age }</td>
+                      <td>{ user.userDetails.phone }</td>
+                      <td>{ user.userClasses }</td>
+                      <td>{ user.userDetails.userRole }</td>
                       <td>
                         <NavLink to={'/admin/user-profile/'+user.id}><Button
                             color="link"
