@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import uuid from 'uuid';
 
 // reactstrap components
 import {
@@ -24,9 +25,11 @@ const ClassesForm = (props) => {
       const [values, setValues] = useState({coach: '',
       description: '',
       capacity: '',
-      timing: '',
+      timings: '',
       date: '',
       name: '',
+      id: uuid(),
+      timeStamp: new Date().toString(),
       userDetails: []});
 
       const handleInputChange = (e) =>{
@@ -119,8 +122,8 @@ const ClassesForm = (props) => {
                         <Input
                           defaultValue=""
                           placeholder="timings"
-                          name="timing"
-                          value={values.timing}
+                          name="timings"
+                          value={values.timings}
                           //onChange={(e) => setValues(e.target.value)} 
                           onChange={handleInputChange} 
                           type="text"
