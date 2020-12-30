@@ -43,7 +43,7 @@ class Tables extends React.Component {
 
   callForm = (obj) => {
     const classesRef = firebase.database().ref('Classes');
-    classesRef.push(obj);
+    classesRef.child(obj.id).set(obj);
   }
   //const {values,setValues} 
   //{values, setValues} = useState(this.state);

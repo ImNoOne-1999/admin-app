@@ -29,7 +29,7 @@ const ClassesForm = (props) => {
       date: '',
       name: '',
       id: uuid(),
-      timeStamp: new Date().toString(),
+      timeStamp: Math.round((new Date()).getTime()/1000),
       userDetails: []});
 
       const handleInputChange = (e) =>{

@@ -43,7 +43,7 @@ class UserProfile extends React.Component {
     const userRef = firebase.database().ref('Users');
     const id = this.props.match.params.id;
     //userRef.child(id).update(this.state.users[id].userDetailts.fullName: );
-    console.log(this.state);
+    //console.log(this.state);
     this.props.history.push('/');
   }
 

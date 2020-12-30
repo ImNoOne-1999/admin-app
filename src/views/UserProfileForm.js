@@ -1,6 +1,9 @@
 import React,{useState} from 'react';
 import firebase from '../config/fbconfig';
 import {useHistory} from 'react-router-dom';
+import emailjs from 'emailjs-com';
+// import{ init } from 'emailjs-com';
+// init("user_xR6TgA2JVu5Vz4Gbu36nl");
 
 // reactstrap components
 import {
@@ -17,6 +20,7 @@ import {
     Form,
     Col,
   } from "reactstrap";
+//import { TRUE } from 'node-sass';
 
 
 function UserProfileForm(props) {
@@ -52,10 +56,11 @@ function UserProfileForm(props) {
       });
       const [values1,setValues1] = useState({
         endDate: '',
-        isActive: '',
+        active: true,
         packageId: '',
         sessions: '',
-        startDate: ''
+        startDate: '',
+        punishment: false
     });
     const handleInputChange = (e) =>{
         setValues({
@@ -77,7 +82,18 @@ function UserProfileForm(props) {
         const userRef = firebase.database().ref('Users');
         //const id = props.id;
         userRef.push({ userDetails: values, userPackages: values1 });
-        console.log(values);
+        //console.log(values);
+        // emailjs.sendForm('service_gmail', 'template_de0eyym', e.target, 'user_xR6TgA2JVu5Vz4Gbu36nl')
+        //   .then((result) => {
+        //       console.log(result.text);
+        //   }, (error) => {
+        //       console.log(error.text);
+        //   });
+          emailjs.send("service_gmail","template_de0eyym",{
+            from: "eladtraining@gmail.com",
+            email: values.email,
+            fullName: values.fullName,
+            },"user_xR6TgA2JVu5Vz4Gbu36nl");
         history.push({ pathname: "/" });
       }
 
