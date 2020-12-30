@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import uuid from 'uuid';
+import {v1 as uuid} from 'uuid';
 
 // reactstrap components
 import {

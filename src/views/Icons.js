@@ -53,7 +53,6 @@ class Icons extends React.Component {
   return (
     <>
       <div className="content">
-      <h1>CLASSES</h1>
         <Card>
           <CardHeader>
             <CardTitle tag="h4">Class Table</CardTitle>
@@ -89,7 +88,7 @@ class Icons extends React.Component {
             </Table>
           </CardBody>
           <CardFooter>
-          <NavLink to={'/admin/tables'}>
+          <NavLink to={'/admin/create-class'}>
             <Button className="btn-fill" color="primary" type="submit" onClick={this.handleClick}>
               Add Class
             </Button>

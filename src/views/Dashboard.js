@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard React v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { useState, useEffect } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -31,6 +14,7 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
+  CardFooter,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -91,7 +75,6 @@ render(){
   return (
     <>
       <div className="content">
-        <h1>USERS</h1>
         <Card>
           <CardHeader>
             <CardTitle tag="h4">User Table</CardTitle>
@@ -119,7 +102,7 @@ render(){
                       <td>{ user.userClasses }</td>
                       <td>{ user.userDetails.userRole }</td>
                       <td>
-                        <NavLink to={'/admin/user-profile/'+user.id}><Button
+                        <NavLink to={'/admin/edit-user-profile/'+user.id}><Button
                             color="link"
                             id="tooltip457194718"
                             title=""
@@ -133,6 +116,11 @@ render(){
               </tbody>
             </Table>
           </CardBody>
+          <CardFooter>
+            <NavLink to={'/admin/user-profile'}><Button className="btn-fill" color="primary" type="button">
+              Add User
+            </Button></NavLink>
+          </CardFooter>
         </Card>
         {/* <Row>
           <Col xs="12">

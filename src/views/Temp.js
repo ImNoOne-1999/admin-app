@@ -71,7 +71,6 @@ function Temp(props) {
               </CardHeader>
               <form onSubmit={handleSubmit}>
               <CardBody>
-               
                   <Row>
                     <Col className="pr-md-1" md="12">
                       <FormGroup>

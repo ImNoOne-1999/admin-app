@@ -23,6 +23,7 @@ import Rtl from "views/Rtl.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
+import UserProfileForm from "views/UserProfileForm.js";
 
 var routes = [
   {
@@ -34,7 +35,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/icons",
+    path: "/classes",
     name: "Classes",
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
@@ -58,19 +59,27 @@ var routes = [
   //   layout: "/admin",
   // },
   {
-    path: "/user-profile/:id",
-    name: "User Profile",
+    path: "/user-profile",
+    name: "Create User Profile",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
-    component: UserProfile,
+    component: UserProfileForm,
     layout: "/admin",
   },
   {
-    path: "/tables",
-    //name: "Table List",
+    path: "/create-class",
+    name: "Create Class",
     //rtlName: "قائمة الجدول",
-    //icon: "tim-icons icon-puzzle-10",
+    icon: "tim-icons icon-puzzle-10",
     component: TableList,
+    layout: "/admin",
+  },
+  {
+    path: "/edit-user-profile/:id",
+    //name: "Edit User Profile",
+    //rtlName: "ملف تعريفي للمستخدم",
+    //icon: "tim-icons icon-single-02",
+    component: UserProfile,
     layout: "/admin",
   },
   // {

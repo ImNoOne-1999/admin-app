@@ -23,37 +23,60 @@ function UserProfileForm(props) {
 
     const history = useHistory();
 
-    const [values,setValues] = useState({
-        userClass: '',
-        userDetails: {
+    // const [values,setValues] = useState({
+    //     userClass: '',
+    //     userDetails: {
+    //       age: '',
+    //       email: '',
+    //       fullName: '',
+    //       imageUrl: '',
+    //       phone: '',
+    //       userRole: ''
+    //     },
+    //     userPackage: {
+    //       endDate: '',
+    //       isActive: '',
+    //       packageId: '',
+    //       sessions: '',
+    //       startDate: ''
+    //     }
+    //   });
+
+      const [values,setValues] = useState({
           age: '',
           email: '',
           fullName: '',
           imageUrl: '',
           phone: '',
           userRole: ''
-        },
-        userPackage: {
-          endDate: '',
-          isActive: '',
-          packageId: '',
-          sessions: '',
-          startDate: ''
-        }
       });
+      const [values1,setValues1] = useState({
+        endDate: '',
+        isActive: '',
+        packageId: '',
+        sessions: '',
+        startDate: ''
+    });
     const handleInputChange = (e) =>{
         setValues({
           ...values,
           [e.target.id]: e.target.value
-        })
+        });
+        //console.log(this.state.users[0].user.userPackage);
+      }
+      const handleInputChangePackage = (e) =>{
+        setValues1({
+          ...values1,
+          [e.target.name]: e.target.value
+        });
         //console.log(this.state.users[0].user.userPackage);
       }
 
       const handleSubmit = (e) =>{
         e.preventDefault();
         const userRef = firebase.database().ref('Users');
-        const id = props.id;
-        //userRef.child(id).update(values);
+        //const id = props.id;
+        userRef.push({ userDetails: values, userPackages: values1 });
         console.log(values);
         history.push({ pathname: "/" });
       }
@@ -64,7 +87,7 @@ function UserProfileForm(props) {
         <div className="content">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">Create Profile</h5>
               </CardHeader>
               <form onSubmit={handleSubmit}>
               <CardBody>
@@ -74,7 +97,7 @@ function UserProfileForm(props) {
                       <FormGroup>
                         <label>Full Name</label>
                         <Input
-                          value={ props.user.userDetails.fullName }
+                          //value={ props.user.userDetails.fullName }
                           placeholder="Full Name"
                           type="text"
                           id="fullName"
@@ -90,16 +113,20 @@ function UserProfileForm(props) {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input value={ props.user.userDetails.email } type="email" id="email"
+                        <Input 
+                        //value={ props.user.userDetails.email } 
+                        type="email" id="email"
                           onChange={handleInputChange} />
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="6">
                       <FormGroup>
-                        <label>Phone (disabled)</label>
+                        <label>Phone</label>
                         <Input
-                          value={ props.user.userDetails.phone }
-                          disabled
+                          //value={ props.user.userDetails.phone }
+                          //disabled
+                          id="phone"
+                          onChange={handleInputChange}
                           placeholder="phone"
                           type="text"
                         />
@@ -111,7 +138,7 @@ function UserProfileForm(props) {
                       <FormGroup>
                         <label>Age</label>
                         <Input
-                          value={ props.user.userDetails.age }
+                          //value={ props.user.userDetails.age }
                           id="age"
                           onChange={handleInputChange}
                           placeholder="Age"
@@ -123,9 +150,9 @@ function UserProfileForm(props) {
                       <FormGroup>
                         <label>Role</label>
                         <Input
-                          value={ props.user.userDetails.userRole }
+                          //value={ props.user.userDetails.userRole }
                           placeholder="Role"
-                          id="role"
+                          id="userRole"
                           onChange={handleInputChange}
                           type="text"
                         />
@@ -137,16 +164,15 @@ function UserProfileForm(props) {
                       <FormGroup>
                         <label>Classes</label>
                         <Input
-                          value={ props.user.userClasses }
+                          //value={ props.user.userClasses }
                           placeholder="Classes opted"
-                          id="classes"
-                          onChange={handleInputChange}
+                          name="classes"
+                          onChange={handleInputChangePackage}
                           type="text"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  {}
                   <CardHeader>
                   <h5 className="title">Class Packages</h5>
                   </CardHeader>
@@ -155,10 +181,10 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>Start Date</label>
                       <Input
-                        defaultValue={ props.user.userPackages.startDate && props.user.userPackages.startDate ? props.user.userPackages.startDate : " "}
+                        //defaultValue={ props.user.userPackages.startDate && props.user.userPackages.startDate ? props.user.userPackages.startDate : " "}
                         type="date"
-                        id="startDate"
-                          onChange={handleInputChange}
+                        name="startDate"
+                          onChange={handleInputChangePackage}
                       />
                     </FormGroup>
                   </Col>
@@ -166,10 +192,10 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>End Date</label>
                       <Input
-                        defaultValue={ props.user.userPackages.endDate && props.user.userPackages.endDate ? props.user.userPackages.endDate : " "}
+                        //defaultValue={ props.user.userPackages.endDate && props.user.userPackages.endDate ? props.user.userPackages.endDate : " "}
                         type="date"
-                        id="endDate"
-                          onChange={handleInputChange}
+                        name="endDate"
+                          onChange={handleInputChangePackage}
                       />
                     </FormGroup>
                   </Col>
@@ -179,10 +205,11 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>Package Id</label>
                       <Input
-                        value={ props.user.userPackages.packageId && props.user.userPackages.packageId ? props.user.userPackages.packageId : "Package Id"}
+                        //value={ props.user.userPackages.packageId && props.user.userPackages.packageId ? props.user.userPackages.packageId : "Package Id"}
+                        placeholder="Package Id"
                         type="text"
-                        id="packageId"
-                          onChange={handleInputChange}
+                        name="packageId"
+                          onChange={handleInputChangePackage}
                       />
                     </FormGroup>
                   </Col>
@@ -190,10 +217,11 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>Sessions</label>
                       <Input
-                        value={ props.user.userPackages.sessions && props.user.userPackages.sessions ? props.user.userPackages.sessions : "Sessions Req"}
+                        //value={ props.user.userPackages.sessions && props.user.userPackages.sessions ? props.user.userPackages.sessions : "Sessions Required"}
+                        placeholder="Sessions Required"
                         type="text"
-                        id="sessions"
-                          onChange={handleInputChange}
+                        name="sessions"
+                          onChange={handleInputChangePackage}
                       />
                     </FormGroup>
                   </Col>
