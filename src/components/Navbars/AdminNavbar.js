@@ -18,7 +18,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-
+import {Link} from 'react-router-dom'
 // reactstrap components
 import {
   Button,
@@ -167,9 +167,9 @@ function AdminNavbar(props) {
                     <DropdownItem className="nav-item">Settings</DropdownItem>
                   </NavLink>
                   <DropdownItem divider tag="li" />
-                  <NavLink tag="li">
+                  <Link tag="li" to={'/login'}>
                     <DropdownItem className="nav-item">Log out</DropdownItem>
-                  </NavLink>
+                  </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
               <li className="separator d-lg-none" />

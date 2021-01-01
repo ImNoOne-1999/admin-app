@@ -79,7 +79,7 @@ const ClassesForm = (props) => {
                         <label htmlFor="exampleInputEmail1">
                           Coach Name
                         </label>
-                        <Input placeholder="" type="text" name="coach"
+                        <Input placeholder="Coach Name" type="text" name="coach"
                           value={values.coach}
                           //onChange={(e) => setValues(e.target.value)}
                           onChange={handleInputChange} 
@@ -121,7 +121,7 @@ const ClassesForm = (props) => {
                         <label>Timings</label>
                         <Input
                           defaultValue=""
-                          placeholder="timings"
+                          placeholder="Timings"
                           name="timings"
                           value={values.timings}
                           //onChange={(e) => setValues(e.target.value)} 
@@ -151,7 +151,7 @@ const ClassesForm = (props) => {
                     <FormGroup>
                       <label>Description</label>
                       <Input
-                        defaultValue=""
+                        placeholder="Enter Class Description Here"
                         type="textarea"
                         name="description"
                           value={values.description}

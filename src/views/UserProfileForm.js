@@ -2,8 +2,6 @@ import React,{useState} from 'react';
 import firebase from '../config/fbconfig';
 import {useHistory} from 'react-router-dom';
 import emailjs from 'emailjs-com';
-// import{ init } from 'emailjs-com';
-// init("user_xR6TgA2JVu5Vz4Gbu36nl");
 
 // reactstrap components
 import {
@@ -20,31 +18,12 @@ import {
     Form,
     Col,
   } from "reactstrap";
-//import { TRUE } from 'node-sass';
+
 
 
 function UserProfileForm(props) {
 
     const history = useHistory();
-
-    // const [values,setValues] = useState({
-    //     userClass: '',
-    //     userDetails: {
-    //       age: '',
-    //       email: '',
-    //       fullName: '',
-    //       imageUrl: '',
-    //       phone: '',
-    //       userRole: ''
-    //     },
-    //     userPackage: {
-    //       endDate: '',
-    //       isActive: '',
-    //       packageId: '',
-    //       sessions: '',
-    //       startDate: ''
-    //     }
-    //   });
 
       const [values,setValues] = useState({
           age: '',
@@ -131,8 +110,8 @@ function UserProfileForm(props) {
                         </label>
                         <Input 
                         //value={ props.user.userDetails.email } 
-                        type="email" id="email"
-                          onChange={handleInputChange} />
+                        type="email" id="email" placeholder="Email"
+                        onChange={handleInputChange} />
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="6">
@@ -143,7 +122,7 @@ function UserProfileForm(props) {
                           //disabled
                           id="phone"
                           onChange={handleInputChange}
-                          placeholder="phone"
+                          placeholder="Phone"
                           type="text"
                         />
                       </FormGroup>
@@ -208,10 +187,9 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>End Date</label>
                       <Input
-                        //defaultValue={ props.user.userPackages.endDate && props.user.userPackages.endDate ? props.user.userPackages.endDate : " "}
                         type="date"
                         name="endDate"
-                          onChange={handleInputChangePackage}
+                        onChange={handleInputChangePackage}
                       />
                     </FormGroup>
                   </Col>
@@ -221,11 +199,10 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>Package Id</label>
                       <Input
-                        //value={ props.user.userPackages.packageId && props.user.userPackages.packageId ? props.user.userPackages.packageId : "Package Id"}
                         placeholder="Package Id"
                         type="text"
                         name="packageId"
-                          onChange={handleInputChangePackage}
+                        onChange={handleInputChangePackage}
                       />
                     </FormGroup>
                   </Col>
@@ -233,11 +210,10 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>Sessions</label>
                       <Input
-                        //value={ props.user.userPackages.sessions && props.user.userPackages.sessions ? props.user.userPackages.sessions : "Sessions Required"}
                         placeholder="Sessions Required"
                         type="text"
                         name="sessions"
-                          onChange={handleInputChangePackage}
+                        onChange={handleInputChangePackage}
                       />
                     </FormGroup>
                   </Col>

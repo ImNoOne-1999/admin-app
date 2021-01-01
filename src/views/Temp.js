@@ -92,7 +92,7 @@ function Temp(props) {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input defaultValue={ props.user.userDetails.email } type="email" id="email"
+                        <Input defaultValue={ props.user.userDetails.email } placeholder="Email" type="email" id="email"
                           onChange={handleInputChange} />
                       </FormGroup>
                     </Col>
