@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
-import { NavLink } from 'react-router-dom'
+import { NavLink,Redirect } from 'react-router-dom'
 import firebase from '../config/fbconfig';
+import { connect } from 'react-redux';
 
 // reactstrap components
 import {
@@ -72,8 +73,9 @@ class Dashboard extends React.Component {
     });
   };
 render(){
+  const { auth } = this.props;
+  if (!auth.uid) return <Redirect to='/login' />
   return (
-    <>
       <div className="content">
         <Card>
           <CardHeader>
@@ -123,8 +125,14 @@ render(){
           </CardFooter>
         </Card>
       </div>
-    </>
   );
 }
 }
-export default Dashboard;
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
+
+export default connect(mapStateToProps)(Dashboard);

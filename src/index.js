@@ -27,25 +27,44 @@ import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
 import "assets/css/nucleo-icons.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
 import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
+import { createStore,applyMiddleware,compose } from 'redux';
+import rootReducer from './store/reducers/rootReducer';
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import {getFirebase,reactReduxFirebase,ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import firebase from './config/fbconfig';
+
+const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument({ getFirebase }))
+);
+
+const rrfProps = {
+  firebase,
+  config: {
+    userProfile: "users",
+    useFirestoreForProfile: true,
+    updateProfileOnLogin: false
+  },
+  dispatch: store.dispatch,
+};
 
 ReactDOM.render(
-  <ThemeContextWrapper>
-    <BackgroundColorWrapper>
-      <BrowserRouter>
-        <Switch>
-          
-          <Route path="/admin" render={(props) => ( props.email ? (<AdminLayout {...props} />) : (alert("You must log in to visit this page."),console.log(props), (<Redirect to="/login"/>)))} />
-          <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
-          <Route path="/login" component={ LoginForm } exact render={()=>(
-                this.props.email ? (alert("You can't login if you are logged in!"), (<Redirect to="/"/>)) : (<LoginForm />)
-            )} />
-          <Redirect from="/" to="/admin/dashboard" />
-        </Switch>
-      </BrowserRouter>
-    </BackgroundColorWrapper>
-  </ThemeContextWrapper>,
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <ThemeContextWrapper>
+        <BackgroundColorWrapper>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/admin" render={(props) => <AdminLayout {...props} /> } />
+              <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
+              <Route path="/login" component={ LoginForm } />
+              <Redirect from="/" to="/admin/dashboard" />
+            </Switch>
+          </BrowserRouter>
+        </BackgroundColorWrapper>
+      </ThemeContextWrapper>
+    </ReactReduxFirebaseProvider>
+  </Provider>,
   document.getElementById("root")
 );

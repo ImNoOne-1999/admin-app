@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signIn } from '../store/actions/authActions';
 import {
     Card,
     CardHeader,
@@ -22,7 +24,7 @@ import {
   };
   
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor(props){
     super(props);
     this.state = initialState;
@@ -60,15 +62,20 @@ export default class LoginForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const isValid = this.validate();
-    if (isValid) {
-      console.log(this.state);
-      // clear form
-      this.setState(initialState);
-      this.props.history.push('/');
-    }
+    //const isValid = this.validate();
+    // if (isValid) {
+    //   console.log(this.state);
+    //   // clear form
+    //   this.setState(initialState);
+
+    //   this.props.history.push('/');
+    // }
+    this.props.signIn(this.state);
+    console.log(this.props);
   };
     render() {
+      const { authError,auth } = this.props;
+      if (auth.uid) return <Redirect to='/' />
         return (
           <div className="content" style={{marginLeft: '35%'}}>
             <h1 style={{marginLeft: '8%'}}>ADMIN LOGIN</h1>
@@ -114,7 +121,7 @@ export default class LoginForm extends Component {
                            Incorrect Email or Password 
                   </div> */}
                   <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.emailorPwdError}
+                    { authError ? <p>{authError}</p> : null }
                   </div>
                   </CardBody>
                   
@@ -131,3 +138,18 @@ export default class LoginForm extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+  return{
+    authError: state.auth.authError,
+    auth: state.firebase.auth
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (cred) => dispatch(signIn(cred))
+  }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

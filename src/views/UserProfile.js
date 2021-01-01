@@ -2,6 +2,8 @@ import React from "react";
 import firebase from '../config/fbconfig';
 import UserProfileForm from './UserProfileForm';
 import Temp from './Temp';
+import { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 // reactstrap components
 import {
@@ -65,6 +67,8 @@ class UserProfile extends React.Component {
     });
   };
   render(){
+    const { auth } = this.props;
+    if (!auth.uid) return <Redirect to='/login' />
   return (
     <>
       <div className="content">
@@ -84,4 +88,10 @@ class UserProfile extends React.Component {
 }
 }
 
-export default UserProfile;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
+
+export default connect(mapStateToProps)(UserProfile);

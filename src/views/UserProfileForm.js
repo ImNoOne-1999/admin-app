@@ -2,6 +2,8 @@ import React,{useState} from 'react';
 import firebase from '../config/fbconfig';
 import {useHistory} from 'react-router-dom';
 import emailjs from 'emailjs-com';
+import { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 // reactstrap components
 import {
@@ -61,13 +63,6 @@ function UserProfileForm(props) {
         const userRef = firebase.database().ref('Users');
         //const id = props.id;
         userRef.push({ userDetails: values, userPackages: values1 });
-        //console.log(values);
-        // emailjs.sendForm('service_gmail', 'template_de0eyym', e.target, 'user_xR6TgA2JVu5Vz4Gbu36nl')
-        //   .then((result) => {
-        //       console.log(result.text);
-        //   }, (error) => {
-        //       console.log(error.text);
-        //   });
           emailjs.send("service_gmail","template_de0eyym",{
             from: "eladtraining@gmail.com",
             email: values.email,
@@ -77,7 +72,8 @@ function UserProfileForm(props) {
       }
 
       
-
+      const { auth } = props;
+      if (!auth.uid) return <Redirect to='/login' />
     return (
         <div className="content">
             <Card>
@@ -232,4 +228,10 @@ function UserProfileForm(props) {
     )
 }
 
-export default UserProfileForm
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
+
+export default connect(mapStateToProps)(UserProfileForm);

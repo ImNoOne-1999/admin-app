@@ -57,22 +57,6 @@ const ClassesForm = (props) => {
               </CardHeader>
               <form onSubmit={handleFormSubmit}>
               <CardBody>
-{/*                
-                  <Row>
-                    <Col className="pr-md-1" md="12">
-                      <FormGroup>
-                        <label>Class Name</label>
-                        <Input
-                          defaultValue=""
-                          placeholder="Full Name"
-                          type="text"
-                          name="className"
-                          value={values.className}
-                          onChange={handleInputChange} 
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row> */}
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
