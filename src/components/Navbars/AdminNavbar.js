@@ -85,13 +85,13 @@ function AdminNavbar(props) {
           <Collapse navbar isOpen={collapseOpen}>
             <Nav className="ml-auto" navbar>
               <InputGroup className="search-bar">
-                <Button color="link" onClick={toggleModalSearch}>
+                {/* <Button color="link" onClick={toggleModalSearch}>
                   <i className="tim-icons icon-zoom-split" />
                   <span className="d-lg-none d-md-block">Search</span>
-                </Button>
+                </Button> */}
               </InputGroup>
               <UncontrolledDropdown nav>
-                <DropdownToggle
+                {/* <DropdownToggle
                   caret
                   color="default"
                   data-toggle="dropdown"
@@ -100,8 +100,8 @@ function AdminNavbar(props) {
                   <div className="notification d-none d-lg-block d-xl-block" />
                   <i className="tim-icons icon-sound-wave" />
                   <p className="d-lg-none">Notifications</p>
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-navbar" right tag="ul">
+                </DropdownToggle> */}
+                {/* <DropdownMenu className="dropdown-navbar" right tag="ul">
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
                       Mike John responded to your email
@@ -128,7 +128,8 @@ function AdminNavbar(props) {
                     </DropdownItem>
                   </NavLink>
                 </DropdownMenu>
-              </UncontrolledDropdown>
+               */}
+               </UncontrolledDropdown>
               <UncontrolledDropdown nav>
                 <DropdownToggle
                   caret
@@ -146,12 +147,12 @@ function AdminNavbar(props) {
                   <p className="d-lg-none">Log out</p>
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
-                  <NavLink tag="li">
+                  {/* <NavLink tag="li">
                     <DropdownItem className="nav-item">Profile</DropdownItem>
                   </NavLink>
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">Settings</DropdownItem>
-                  </NavLink>
+                  </NavLink> */}
                   <DropdownItem divider tag="li" />
                   <a onClick={props.signOut}>
                     <DropdownItem className="nav-item">Log out</DropdownItem>
@@ -163,7 +164,7 @@ function AdminNavbar(props) {
           </Collapse>
         </Container>
       </Navbar>
-      <Modal
+      {/* <Modal
         modalClassName="modal-search"
         isOpen={modalSearch}
         toggle={toggleModalSearch}
@@ -178,7 +179,7 @@ function AdminNavbar(props) {
             <i className="tim-icons icon-simple-remove" />
           </button>
         </ModalHeader>
-      </Modal>
+      </Modal> */}
     </>
   );
 }
