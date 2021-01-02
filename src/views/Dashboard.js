@@ -57,10 +57,6 @@ class Dashboard extends React.Component {
       let newState = [];
       for(let user in users) {
         newState.push({
-          // id: user,
-          // user: users[user].userDetails,
-          // userClass: users[user].userClasses,
-          // userPackage: users[user].userPackages
           id: user,
           userPackages: users[user].userPackages,
           userDetails: users[user].userDetails,
@@ -89,7 +85,6 @@ render(){
                   <th>Email</th>
                   <th>Age</th>
                   <th>Phone</th>
-                  <th>Classes</th>
                   <th>Role</th>
                 </tr>
               </thead>
@@ -101,7 +96,6 @@ render(){
                       <td>{ user.userDetails.email }</td>
                       <td>{ user.userDetails.age }</td>
                       <td>{ user.userDetails.phone }</td>
-                      <td>{ user.userClasses }</td>
                       <td>{ user.userDetails.userRole }</td>
                       <td>
                         <NavLink to={'/admin/edit-user-profile/'+user.id}><Button

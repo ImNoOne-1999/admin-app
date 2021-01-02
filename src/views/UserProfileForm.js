@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
+import * as admin from 'firebase-admin';
 
 // reactstrap components
 import {
@@ -26,7 +27,7 @@ import {
 function UserProfileForm(props) {
 
     const history = useHistory();
-
+    var password = "";
       const [values,setValues] = useState({
           age: '',
           email: '',
@@ -41,7 +42,8 @@ function UserProfileForm(props) {
         packageId: '',
         sessions: '',
         startDate: '',
-        punishment: false
+        punishment: false,
+        punishmentTimeStamp: 0,
     });
     const handleInputChange = (e) =>{
         setValues({
@@ -58,16 +60,43 @@ function UserProfileForm(props) {
         //console.log(this.state.users[0].user.userPackage);
       }
 
+      const createAccount = () => {
+
+          var result           = '';
+          var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          var charactersLength = characters.length;
+          for ( var i = 0; i < 7; i++ ) {
+             result += characters.charAt(Math.floor(Math.random() * charactersLength));
+          }
+          
+          password = result;
+          console.log(password);
+
+        firebase.auth().createUserWithEmailAndPassword(values.email, password)
+        .then((user) => {
+          // Signed in 
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ..
+        });
+      }
+
       const handleSubmit = (e) =>{
         e.preventDefault();
         const userRef = firebase.database().ref('Users');
         //const id = props.id;
         userRef.push({ userDetails: values, userPackages: values1 });
+        createAccount();
           emailjs.send("service_gmail","template_de0eyym",{
             from: "eladtraining@gmail.com",
             email: values.email,
             fullName: values.fullName,
+            password: password
             },"user_xR6TgA2JVu5Vz4Gbu36nl");
+          
         history.push({ pathname: "/" });
       }
 
@@ -150,20 +179,6 @@ function UserProfileForm(props) {
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="8">
-                      <FormGroup>
-                        <label>Classes</label>
-                        <Input
-                          //value={ props.user.userClasses }
-                          placeholder="Classes opted"
-                          name="classes"
-                          onChange={handleInputChangePackage}
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
                   <CardHeader>
                   <h5 className="title">Class Packages</h5>
                   </CardHeader>
@@ -193,9 +208,9 @@ function UserProfileForm(props) {
                   <Row>
                   <Col className="pr-md-1" md="6">
                     <FormGroup>
-                      <label>Package Id</label>
+                      <label>Package Name</label>
                       <Input
-                        placeholder="Package Id"
+                        placeholder="Package Name"
                         type="text"
                         name="packageId"
                         onChange={handleInputChangePackage}

@@ -134,21 +134,6 @@ function Temp(props) {
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="8">
-                      <FormGroup>
-                        <label>Classes</label>
-                        <Input
-                          defaultValue={ props.user.userClasses }
-                          placeholder="Classes opted"
-                          id="classes"
-                          onChange={handleInputChange}
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  {}
                   <CardHeader>
                   <h5 className="title">Class Packages</h5>
                   </CardHeader>
