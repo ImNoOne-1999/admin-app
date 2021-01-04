@@ -11,9 +11,9 @@ import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
 import { createStore,applyMiddleware,compose } from 'redux';
 import rootReducer from './store/reducers/rootReducer';
-import {Provider} from 'react-redux';
+import {Provider,useSelector} from 'react-redux';
 import thunk from 'redux-thunk';
-import {getFirebase,reactReduxFirebase,ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import {getFirebase,ReactReduxFirebaseProvider,isLoaded } from 'react-redux-firebase';
 import firebase from './config/fbconfig';
 
 const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument({ getFirebase }))
@@ -24,14 +24,22 @@ const rrfProps = {
   config: {
     userProfile: "users",
     useFirestoreForProfile: true,
+    attachAuthIsReady: true,
     updateProfileOnLogin: false
   },
   dispatch: store.dispatch,
 };
 
+function AuthIsLoaded({ children }) {
+  const auth = useSelector(state => state.firebase.auth)
+  if (!isLoaded(auth)) return <div></div>;
+      return children
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
+    <AuthIsLoaded>
       <ThemeContextWrapper>
         <BackgroundColorWrapper>
           <BrowserRouter>
@@ -43,6 +51,7 @@ ReactDOM.render(
           </BrowserRouter>
         </BackgroundColorWrapper>
       </ThemeContextWrapper>
+    </AuthIsLoaded>
     </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")
