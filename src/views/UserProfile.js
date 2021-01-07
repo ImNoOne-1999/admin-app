@@ -31,21 +31,13 @@ class UserProfile extends React.Component {
   };
 
   handleChange = (e) =>{
-    // this.setState({
-    //   ...this.state,
-    //   [e.target.id]: e.target.value
-    // })
     const id = this.props.match.params.id;
-    //this.setState({ users[0].userDetails.fullName: e.target.value}) 
-    //console.log(this.state.users[0].user);
   }
 
   handleSubmit = (e) =>{
     e.preventDefault();
     const userRef = firebase.database().ref('Users');
     const id = this.props.match.params.id;
-    //userRef.child(id).update(this.state.users[id].userDetailts.fullName: );
-    //console.log(this.state);
     this.props.history.push('/');
   }
 

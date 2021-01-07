@@ -13,6 +13,12 @@ class Icons extends React.Component {
     };
   };
 
+  deleteClass = (id) => {
+    console.log(id);
+    const classesRef = firebase.database().ref('Classes').child(id);
+    classesRef.remove();
+  }
+
   componentDidMount() {
     const classesRef = firebase.database().ref('Classes');
     classesRef.on('value', (snapshot) => {
@@ -66,6 +72,16 @@ class Icons extends React.Component {
                       <td>{ classs.classs.date }</td>
                       <td>{ classs.classs.capacity }</td>
                       <td>{ classs.usersJoined }</td>
+                      <td>
+                        <NavLink to={'/'}><Button
+                            color="link"
+                            //id="tooltip457194718"
+                            //title=""
+                            type="button"
+                            onClick={() => {this.deleteClass(classs.id)}}
+                          >
+                            <i className="tim-icons icon-simple-remove" />
+                          </Button></NavLink></td>
                     </tr>  
                 )
               })}

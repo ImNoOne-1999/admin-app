@@ -3,6 +3,7 @@ import Icons from "views/Icons.js";
 import TableList from "views/TableList.js";
 import UserProfile from "views/UserProfile.js";
 import UserProfileForm from "views/UserProfileForm.js";
+import News from "views/News.js";
 
 var routes = [
   {
@@ -32,6 +33,13 @@ var routes = [
     name: "Create Class",
     icon: "tim-icons icon-puzzle-10",
     component: TableList,
+    layout: "/admin",
+  },
+  {
+    path: "/news",
+    name: "News List",
+    icon: "tim-icons icon-paper",
+    component: News,
     layout: "/admin",
   },
   {

@@ -50,14 +50,12 @@ function UserProfileForm(props) {
           ...values,
           [e.target.id]: e.target.value
         });
-        //console.log(this.state.users[0].user.userPackage);
       }
       const handleInputChangePackage = (e) =>{
         setValues1({
           ...values1,
           [e.target.name]: e.target.value
         });
-        //console.log(this.state.users[0].user.userPackage);
       }
 
       const createAccount = () => {
@@ -121,6 +119,7 @@ function UserProfileForm(props) {
                           placeholder="Full Name"
                           type="text"
                           id="fullName"
+                          required
                           //onChange={(e)=>this.setState({userDetails: { fullName: e.target.value}})}
                           onChange={handleInputChange}
                         />
@@ -136,6 +135,7 @@ function UserProfileForm(props) {
                         <Input 
                         //value={ props.user.userDetails.email } 
                         type="email" id="email" placeholder="Email"
+                        required
                         onChange={handleInputChange} />
                       </FormGroup>
                     </Col>
@@ -145,10 +145,12 @@ function UserProfileForm(props) {
                         <Input
                           //value={ props.user.userDetails.phone }
                           //disabled
+                          required
                           id="phone"
                           onChange={handleInputChange}
                           placeholder="Phone"
-                          type="text"
+                          type="tel"
+                          pattern="[0-9]{10}"
                         />
                       </FormGroup>
                     </Col>
@@ -167,7 +169,7 @@ function UserProfileForm(props) {
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="6">
-                      <FormGroup>
+                      {/* <FormGroup>
                         <label>Role</label>
                         <Input
                           //value={ props.user.userDetails.userRole }
@@ -176,7 +178,7 @@ function UserProfileForm(props) {
                           onChange={handleInputChange}
                           type="text"
                         />
-                      </FormGroup>
+                      </FormGroup> */}
                     </Col>
                   </Row>
                   <CardHeader>
@@ -190,7 +192,8 @@ function UserProfileForm(props) {
                         //defaultValue={ props.user.userPackages.startDate && props.user.userPackages.startDate ? props.user.userPackages.startDate : " "}
                         type="date"
                         name="startDate"
-                          onChange={handleInputChangePackage}
+                        onChange={handleInputChangePackage}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -201,6 +204,7 @@ function UserProfileForm(props) {
                         type="date"
                         name="endDate"
                         onChange={handleInputChangePackage}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -214,6 +218,7 @@ function UserProfileForm(props) {
                         type="text"
                         name="packageId"
                         onChange={handleInputChangePackage}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -222,9 +227,10 @@ function UserProfileForm(props) {
                       <label>Sessions</label>
                       <Input
                         placeholder="Sessions Required"
-                        type="text"
+                        type="number"
                         name="sessions"
                         onChange={handleInputChangePackage}
+                        required
                       />
                     </FormGroup>
                   </Col>

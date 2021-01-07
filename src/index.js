@@ -13,11 +13,17 @@ import { createStore,applyMiddleware,compose } from 'redux';
 import rootReducer from './store/reducers/rootReducer';
 import {Provider,useSelector} from 'react-redux';
 import thunk from 'redux-thunk';
-import {getFirebase,ReactReduxFirebaseProvider,isLoaded } from 'react-redux-firebase';
+import {getFirebase,isLoaded,ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import firebase from './config/fbconfig';
 
 const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument({ getFirebase }))
 );
+
+function AuthIsLoaded({ children }) {
+  const auth = useSelector(state => state.firebase.auth)
+  if (!isLoaded(auth)) return <div></div>;
+      return children
+}
 
 const rrfProps = {
   firebase,
@@ -29,12 +35,6 @@ const rrfProps = {
   },
   dispatch: store.dispatch,
 };
-
-function AuthIsLoaded({ children }) {
-  const auth = useSelector(state => state.firebase.auth)
-  if (!isLoaded(auth)) return <div></div>;
-      return children
-}
 
 ReactDOM.render(
   <Provider store={store}>

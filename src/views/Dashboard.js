@@ -38,10 +38,6 @@ import {
 } from "variables/charts.js";
 
 class Dashboard extends React.Component {
-  // const [bigChartData, setbigChartData] = React.useState("data1");
-  // const setBgChartData = (name) => {
-  //   setbigChartData(name);
-  // };
 
   constructor(props){
     super(props);

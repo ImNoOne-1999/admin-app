@@ -103,7 +103,7 @@ function Sidebar(props) {
             <Nav>
               {routes.map((prop, key) => {
                 if (prop.redirect) return null;
-                if (key<4)
+                if (key<5)
                 {return (
                   <li
                     className={
