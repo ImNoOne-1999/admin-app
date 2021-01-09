@@ -71,12 +71,14 @@ class News extends React.Component {
   callForm = (obj) => {
     const homeRef = firebase.database().ref('HomeInfo').child('News');
     homeRef.push(obj);
+    
   }
 
   deleteNews = (id) => {
     console.log(id);
     const newsRef = firebase.database().ref('HomeInfo').child('News').child(id);
     newsRef.remove();
+    this.props.history.push({ pathname: "/admin/news" });
   }
   
 render(){
@@ -100,7 +102,8 @@ render(){
                 //id="tooltip457194718"
                 //title=""
                 type="button"
-                onClick={this.toggleModalDelete}
+                // onClick={this.toggleModalDelete}
+                onClick={()=>{this.deleteNews(n.id)}}
                 >
                 <i className="tim-icons icon-simple-remove" />
                 </Button>
@@ -116,7 +119,7 @@ render(){
                         aria-hidden="true"
                         onClick={this.toggleModalDelete}
                     >
-                        <i className="tim-icons icon-simple-remove" />
+                      <i className="tim-icons icon-simple-remove" />
                     </button>
                     </div>
                     <ModalBody>

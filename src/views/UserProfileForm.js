@@ -34,7 +34,6 @@ function UserProfileForm(props) {
           fullName: '',
           imageUrl: '',
           phone: '',
-          userRole: ''
       });
       const [values1,setValues1] = useState({
         endDate: '',
@@ -50,6 +49,13 @@ function UserProfileForm(props) {
           ...values,
           [e.target.id]: e.target.value
         });
+      }
+      const handleChangeDate = (e) =>{
+        setValues1({
+          ...values1,
+          [e.target.id]: new Date(e.target.value).valueOf()/1000
+        });
+        console.log(values1);
       }
       const handleInputChangePackage = (e) =>{
         setValues1({
@@ -191,8 +197,8 @@ function UserProfileForm(props) {
                       <Input
                         //defaultValue={ props.user.userPackages.startDate && props.user.userPackages.startDate ? props.user.userPackages.startDate : " "}
                         type="date"
-                        name="startDate"
-                        onChange={handleInputChangePackage}
+                        id="startDate"
+                        onChange={handleChangeDate}
                         required
                       />
                     </FormGroup>
@@ -202,8 +208,8 @@ function UserProfileForm(props) {
                       <label>End Date</label>
                       <Input
                         type="date"
-                        name="endDate"
-                        onChange={handleInputChangePackage}
+                        id="endDate"
+                        onChange={handleChangeDate}
                         required
                       />
                     </FormGroup>

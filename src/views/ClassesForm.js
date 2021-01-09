@@ -43,7 +43,7 @@ const ClassesForm = (props) => {
       const handleFormSubmit = (e) =>{
         e.preventDefault();
         props.callForm(values);
-        history.push({ pathname: "/" });
+        history.push({ pathname: "/admin/classes" });
       }
     
 

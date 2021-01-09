@@ -81,7 +81,7 @@ render(){
                   <th>Email</th>
                   <th>Age</th>
                   <th>Phone</th>
-                  <th>Role</th>
+                  {/* <th>Role</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -92,7 +92,7 @@ render(){
                       <td>{ user.userDetails.email }</td>
                       <td>{ user.userDetails.age }</td>
                       <td>{ user.userDetails.phone }</td>
-                      <td>{ user.userDetails.userRole }</td>
+                      {/* <td>{ user.userDetails.userRole }</td> */}
                       <td>
                         <NavLink to={'/admin/edit-user-profile/'+user.id}><Button
                             color="link"

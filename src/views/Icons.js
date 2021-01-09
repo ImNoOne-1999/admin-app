@@ -17,6 +17,7 @@ class Icons extends React.Component {
     console.log(id);
     const classesRef = firebase.database().ref('Classes').child(id);
     classesRef.remove();
+    this.props.history.push({ pathname: "/admin/classes" });
   }
 
   componentDidMount() {
@@ -73,7 +74,7 @@ class Icons extends React.Component {
                       <td>{ classs.classs.capacity }</td>
                       <td>{ classs.usersJoined }</td>
                       <td>
-                        <NavLink to={'/'}><Button
+                        <Button
                             color="link"
                             //id="tooltip457194718"
                             //title=""
@@ -81,7 +82,7 @@ class Icons extends React.Component {
                             onClick={() => {this.deleteClass(classs.id)}}
                           >
                             <i className="tim-icons icon-simple-remove" />
-                          </Button></NavLink></td>
+                          </Button></td>
                     </tr>  
                 )
               })}

@@ -43,7 +43,7 @@ const NewsForm = (props) => {
       const handleFormSubmit = (e) =>{
         e.preventDefault();
         props.callForm(values);
-        history.push({ pathname: "/" });
+        history.push({ pathname: "/admin/news" });
       }
     
 
@@ -100,7 +100,10 @@ const NewsForm = (props) => {
                   </Row>
                   </CardBody>
               <CardFooter>
-                <Button className="btn-fill" color="primary" onClick={props.toggleModalAdd} >
+                <Button className="btn-fill" color="primary" 
+                //onClick={props.toggleModalAdd} 
+                type="submit"
+                >
                   Add News
                 </Button>
                 <Modal isOpen={props.modalAdd} toggle={props.toggleModalAdd}>
@@ -121,7 +124,9 @@ const NewsForm = (props) => {
                     <ModalBody>
                         <p>Re-Check Before Adding News</p>
                         <br />
-                        <Button color="primary" className="right" onClick={handleFormSubmit} >
+                        <Button color="primary" className="right" 
+                        onClick={handleFormSubmit} 
+                        >
                             Add News
                         </Button>
                     </ModalBody>

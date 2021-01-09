@@ -25,7 +25,6 @@ import {
 
 function AdminNavbar(props) {
   const { auth } = props;
-  console.log(auth);
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");

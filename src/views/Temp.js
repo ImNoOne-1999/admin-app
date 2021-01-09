@@ -1,7 +1,6 @@
 import React,{useState} from 'react';
 import firebase from '../config/fbconfig';
 import {useHistory} from 'react-router-dom';
-
 // reactstrap components
 import {
     Card,
@@ -18,7 +17,6 @@ import {
     Col,
   } from "reactstrap";
 
-
 function Temp(props) {
 
     const history = useHistory();
@@ -29,7 +27,7 @@ function Temp(props) {
           fullName: props.user.userDetails.fullName,
           imageUrl: props.user.userDetails.imageUrl,
           phone: props.user.userDetails.phone,
-          userRole: props.user.userDetails.userRole
+          //userRole: props.user.userDetails.userRole
       });
 
       const [values1,setValues1] = useState({
@@ -121,7 +119,7 @@ function Temp(props) {
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="pl-md-1" md="6">
+                    {/* <Col className="pl-md-1" md="6">
                       <FormGroup>
                         <label>Role</label>
                         <Input
@@ -132,7 +130,7 @@ function Temp(props) {
                           type="text"
                         />
                       </FormGroup>
-                    </Col>
+                    </Col> */}
                   </Row>
                   <CardHeader>
                   <h5 className="title">Class Packages</h5>
