@@ -79,7 +79,7 @@ render(){
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Age</th>
+                  <th>Date of Birth</th>
                   <th>Phone</th>
                   {/* <th>Role</th> */}
                 </tr>
@@ -90,7 +90,7 @@ render(){
                     <tr>
                       <td>{ user.userDetails.fullName }</td>
                       <td>{ user.userDetails.email }</td>
-                      <td>{ user.userDetails.age }</td>
+                      <td>{ user.userDetails.dob }</td>
                       <td>{ user.userDetails.phone }</td>
                       {/* <td>{ user.userDetails.userRole }</td> */}
                       <td>

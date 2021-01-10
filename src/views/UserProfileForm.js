@@ -5,6 +5,7 @@ import emailjs from 'emailjs-com';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as admin from 'firebase-admin';
+import {v1 as uuid} from 'uuid';
 
 // reactstrap components
 import {
@@ -29,7 +30,7 @@ function UserProfileForm(props) {
     const history = useHistory();
     var password = "";
       const [values,setValues] = useState({
-          age: '',
+          dob: '',
           email: '',
           fullName: '',
           imageUrl: '',
@@ -63,7 +64,7 @@ function UserProfileForm(props) {
           [e.target.name]: e.target.value
         });
       }
-
+      var userid = "";
       const createAccount = () => {
 
           var result           = '';
@@ -80,20 +81,28 @@ function UserProfileForm(props) {
         .then((user) => {
           // Signed in 
           // ...
+          const userRef = firebase.database().ref('Users');
+        //const id = props.id; { userDetails: values, userPackages: values1 }
+        console.log(firebase.auth().currentUser.uid);
+        userRef.child(firebase.auth().currentUser.uid).set({ userDetails: values, userPackages: values1 });
+        
+        console.log("here");
         })
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
           // ..
+          console.log(errorMessage);
         });
       }
 
       const handleSubmit = (e) =>{
         e.preventDefault();
-        const userRef = firebase.database().ref('Users');
-        //const id = props.id;
-        userRef.push({ userDetails: values, userPackages: values1 });
+        
+        //userRef.createUser({ userDetails: values, userPackages: values1 })
         createAccount();
+        
+        
           emailjs.send("service_gmail","template_de0eyym",{
             from: "eladtraining@gmail.com",
             email: values.email,
@@ -164,13 +173,13 @@ function UserProfileForm(props) {
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
-                        <label>Age</label>
+                        <label>Date of Birth</label>
                         <Input
                           //value={ props.user.userDetails.age }
-                          id="age"
+                          id="dob"
                           onChange={handleInputChange}
-                          placeholder="Age"
-                          type="text"
+                          placeholder="DOB"
+                          type="date"
                         />
                       </FormGroup>
                     </Col>

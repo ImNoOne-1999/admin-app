@@ -110,7 +110,7 @@ const ClassesForm = (props) => {
                           value={values.timings}
                           //onChange={(e) => setValues(e.target.value)} 
                           onChange={handleInputChange} 
-                          type="text"
+                          type="time"
                         />
                       </FormGroup>
                     </Col>

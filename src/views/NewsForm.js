@@ -85,7 +85,10 @@ const NewsForm = (props) => {
                         type="text"
                         name="imageUrl"
                         value={values.imageUrl} 
-                        onChange={handleInputChange} 
+                        onChange={handleInputChange}
+                        // pattern="((http|https)://)(www.)?” 
+                        // + “[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]” 
+                        // + “{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
                       />
                     </FormGroup>
                   </Col>

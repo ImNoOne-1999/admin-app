@@ -79,7 +79,7 @@ class Icons extends React.Component {
                             //id="tooltip457194718"
                             //title=""
                             type="button"
-                            onClick={() => {this.deleteClass(classs.id)}}
+                            onClick={()=>{if(window.confirm("Sure You Want To Delete This Class?"))this.deleteClass(classs.id)}}
                           >
                             <i className="tim-icons icon-simple-remove" />
                           </Button></td>

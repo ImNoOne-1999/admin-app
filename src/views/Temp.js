@@ -22,7 +22,7 @@ function Temp(props) {
     const history = useHistory();
 
     const [values,setValues] = useState({
-          age: props.user.userDetails.age,
+          dob: props.user.userDetails.dob,
           email: props.user.userDetails.email,
           fullName: props.user.userDetails.fullName,
           imageUrl: props.user.userDetails.imageUrl,
@@ -44,7 +44,7 @@ function Temp(props) {
         })
         setValues1({
             ...values1,
-            [e.target.id]: e.target.value
+            [e.target.name]: e.target.value
           })
         //console.log(this.state.users[0].user.userPackage);
       }
@@ -55,7 +55,6 @@ function Temp(props) {
         const id = props.id;
         userRef.child(id).child('userDetails').update(values);
         userRef.child(id).child('userPackages').update(values1);
-        console.log(values);
         history.push({ pathname: "/" });
       }
 
@@ -109,13 +108,13 @@ function Temp(props) {
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
-                        <label>Age</label>
+                        <label>Date of Birth</label>
                         <Input
-                          defaultValue={ props.user.userDetails.age }
-                          id="age"
+                          defaultValue={ props.user.userDetails.dob }
+                          id="dob"
                           onChange={handleInputChange}
-                          placeholder="Age"
-                          type="text"
+                          placeholder="dob"
+                          type="date"
                         />
                       </FormGroup>
                     </Col>
@@ -142,7 +141,7 @@ function Temp(props) {
                       <Input
                         defaultValue={ props.user.userPackages.startDate && props.user.userPackages.startDate ? props.user.userPackages.startDate : " "}
                         type="date"
-                        id="startDate"
+                        name="startDate"
                           onChange={handleInputChange}
                       />
                     </FormGroup>
@@ -153,7 +152,7 @@ function Temp(props) {
                       <Input
                         defaultValue={ props.user.userPackages.endDate && props.user.userPackages.endDate ? props.user.userPackages.endDate : " "}
                         type="date"
-                        id="endDate"
+                        name="endDate"
                           onChange={handleInputChange}
                       />
                     </FormGroup>
@@ -166,7 +165,7 @@ function Temp(props) {
                       <Input
                         defaultValue={ props.user.userPackages.packageId && props.user.userPackages.packageId ? props.user.userPackages.packageId : "Package Id"}
                         type="text"
-                        id="packageId"
+                        name="packageId"
                           onChange={handleInputChange}
                       />
                     </FormGroup>
@@ -176,8 +175,8 @@ function Temp(props) {
                       <label>Sessions</label>
                       <Input
                         defaultValue={ props.user.userPackages.sessions && props.user.userPackages.sessions ? props.user.userPackages.sessions : "Sessions Req"}
-                        type="text"
-                        id="sessions"
+                        type="number"
+                        name="sessions"
                           onChange={handleInputChange}
                       />
                     </FormGroup>

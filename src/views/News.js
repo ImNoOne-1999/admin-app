@@ -102,8 +102,8 @@ render(){
                 //id="tooltip457194718"
                 //title=""
                 type="button"
-                // onClick={this.toggleModalDelete}
-                onClick={()=>{this.deleteNews(n.id)}}
+                //onClick={this.toggleModalDelete}
+                onClick={()=>{if(window.confirm("Sure You Want To Delete This News?"))this.deleteNews(n.id)}}
                 >
                 <i className="tim-icons icon-simple-remove" />
                 </Button>
