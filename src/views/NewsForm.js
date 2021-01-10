@@ -43,6 +43,12 @@ const NewsForm = (props) => {
       const handleFormSubmit = (e) =>{
         e.preventDefault();
         props.callForm(values);
+        setValues({
+          body: '',
+          title: '',
+          imageUrl: '',
+          timeStamp: Math.round((new Date()).getTime()/1000),
+        })
         history.push({ pathname: "/admin/news" });
       }
     
