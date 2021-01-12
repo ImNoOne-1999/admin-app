@@ -51,6 +51,28 @@ function UserProfileForm(props) {
           [e.target.id]: e.target.value
         });
       }
+      var today;
+      const handleInputChangeDOB = (e) =>{
+        today = new Date(e.target.value);
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = dd + '/' + mm + '/' + yyyy;
+        //handleInputChangeDOB(today);
+        setValues({
+          ...values,
+          dob: today
+        });
+      }
+
+      const handleInputChangeNumber = (e) =>{
+        setValues1 ({
+            ...values1,
+            [e.target.name]: parseInt(e.target.value)
+        }) 
+      }
+
       const handleChangeDate = (e) =>{
         setValues1({
           ...values1,
@@ -75,40 +97,30 @@ function UserProfileForm(props) {
           }
           
           password = result;
-          console.log(password);
-
+        //console.log(values.dob);
         firebase.auth().createUserWithEmailAndPassword(values.email, password)
         .then((user) => {
           // Signed in 
           // ...
           const userRef = firebase.database().ref('Users');
-        //const id = props.id; { userDetails: values, userPackages: values1 }
-        console.log(firebase.auth().currentUser.uid);
-        userRef.child(firebase.auth().currentUser.uid).set({ userDetails: values, userPackages: values1 });
-        
-        console.log("here");
+          userRef.child(firebase.auth().currentUser.uid).set({ userDetails: values, userPackages: values1 });       
         })
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
-          // ..
           console.log(errorMessage);
         });
       }
 
       const handleSubmit = (e) =>{
         e.preventDefault();
-        
-        //userRef.createUser({ userDetails: values, userPackages: values1 })
         createAccount();
-        
-        
-          emailjs.send("service_gmail","template_de0eyym",{
-            from: "eladtraining@gmail.com",
-            email: values.email,
-            fullName: values.fullName,
-            password: password
-            },"user_xR6TgA2JVu5Vz4Gbu36nl");
+        emailjs.send("service_gmail","template_de0eyym",{
+          from: "eladtraining@gmail.com",
+          email: values.email,
+          fullName: values.fullName,
+          password: password
+          },"user_xR6TgA2JVu5Vz4Gbu36nl");
           
         history.push({ pathname: "/" });
       }
@@ -177,7 +189,7 @@ function UserProfileForm(props) {
                         <Input
                           //value={ props.user.userDetails.age }
                           id="dob"
-                          onChange={handleInputChange}
+                          onChange={(e)=>{handleInputChange(e); handleInputChangeDOB(e);}}
                           placeholder="DOB"
                           type="date"
                         />
@@ -241,10 +253,10 @@ function UserProfileForm(props) {
                     <FormGroup>
                       <label>Sessions</label>
                       <Input
-                        placeholder="Sessions Required"
+                        placeholder="Sessions required"
                         type="number"
                         name="sessions"
-                        onChange={handleInputChangePackage}
+                        onChange={handleInputChangeNumber}
                         required
                       />
                     </FormGroup>

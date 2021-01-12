@@ -46,7 +46,7 @@ class LoginForm extends Component {
 
     if(!(this.state.email=="eladtraining@gmail.com" && this.state.password=="eladTraining#0945")){
       emailorPwdError = "Invalid email or password";
-      console.log("here");
+      
     }
 
     if (emailorPwdError) {
@@ -54,7 +54,6 @@ class LoginForm extends Component {
       return false;
     }
     if(this.state.email=="eladtraining@gmail.com" && this.state.password=="eladTraining#0945"){
-      console.log("pass");
       return true;
     }
     return false;
@@ -62,14 +61,6 @@ class LoginForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    //const isValid = this.validate();
-    // if (isValid) {
-    //   console.log(this.state);
-    //   // clear form
-    //   this.setState(initialState);
-
-    //   this.props.history.push('/');
-    // }
     this.props.signIn(this.state);
     console.log(this.props);
   };

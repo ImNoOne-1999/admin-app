@@ -53,8 +53,8 @@ function Temp(props) {
         e.preventDefault();
         const userRef = firebase.database().ref('Users');
         const id = props.id;
-        userRef.child(id).child('userDetails').update(values);
-        userRef.child(id).child('userPackages').update(values1);
+        // userRef.child(id).child('userDetails').update(values);
+        // userRef.child(id).child('userPackages').update(values1);
         history.push({ pathname: "/" });
       }
 
@@ -115,6 +115,7 @@ function Temp(props) {
                           onChange={handleInputChange}
                           placeholder="dob"
                           type="date"
+                          disabled
                         />
                       </FormGroup>
                     </Col>
