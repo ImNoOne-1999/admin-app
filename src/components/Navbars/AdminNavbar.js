@@ -24,6 +24,7 @@ import {
 } from "reactstrap";
 
 function AdminNavbar(props) {
+  console.log(props);
   const { auth } = props;
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
@@ -136,11 +137,14 @@ function AdminNavbar(props) {
                   nav
                   onClick={(e) => e.preventDefault()}
                 >
-                  <div className="photo">
-                    <img
+                  <div>
+                    {/* <img
                       alt="..."
                       src={require("assets/img/anime3.png").default}
-                    />
+                    /> */}
+                    <Button className="btn-round btn-icon" color="info">
+                      <i className="tim-icons icon-user-run animation-on-hover"/>
+                    </Button>
                   </div>
                   <b className="caret d-none d-lg-block d-xl-block" />
                   <p className="d-lg-none">Log out</p>

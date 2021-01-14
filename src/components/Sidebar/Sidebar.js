@@ -53,7 +53,7 @@ function Sidebar(props) {
           onClick={props.toggleSidebar}
         >
           <div className="logo-img">
-            <img src={ImageLogo} alt="react-logo" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/elad-training.appspot.com/o/webAssets%2FcircleLogo.png?alt=media&token=39899df3-2e75-4e6a-ae40-3c14b52937d8" alt="react-logo" />
           </div>
         </a>
       );

@@ -92,7 +92,7 @@ function Admin(props) {
             <Sidebar
               routes={routes}
               logo={{
-                outterLink: "/admin/dashboard",
+                //outterLink: "/admin/dashboard",
                 text: "Elad Training",
                 imgSrc: logo,
               }}
