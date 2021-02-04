@@ -6,7 +6,7 @@ import { Line, Bar } from "react-chartjs-2";
 import { NavLink,Redirect } from 'react-router-dom'
 import firebase from '../config/fbconfig';
 import { connect } from 'react-redux';
-
+import * as admin from 'firebase-admin';
 // reactstrap components
 import {
   Button,
@@ -37,6 +37,7 @@ import {
   chartExample4,
 } from "variables/charts.js";
 
+
 class Dashboard extends React.Component {
 
   constructor(props){
@@ -45,6 +46,30 @@ class Dashboard extends React.Component {
       users: []
     };
   };
+
+  deleteUser = (id) => {
+    console.log(id);
+  //   var app = admin.initializeApp(firebase);
+  //   var ad = app.auth()
+  // .deleteUser(id)
+  // .then(() => {
+  //   console.log('Successfully deleted user');
+  //   const userRef = firebase.database().ref('Users').child(id);
+  //   userRef.remove();
+  //   this.props.history.push({ pathname: "/admin/dashboard" });
+  //   console.log('Successfully deleted user');
+  // })
+  // .catch((error) => {
+  //   console.log('Error deleting user:', error);
+  // });
+    // user.delete().then(function() {
+    //   // User deleted.
+    
+    // }).catch(function(error) {
+    //   // An error happened.
+    // });
+    
+  }
 
   componentDidMount() {
     const userRef = firebase.database().ref('Users');
@@ -102,6 +127,14 @@ render(){
                           >
                             <i className="tim-icons icon-pencil" />
                           </Button></NavLink></td>
+                        <td>
+                        <Button
+                            color="link"
+                            type="button"
+                            onClick={()=>{if(window.confirm("Sure You Want To Delete This User?"))this.deleteUser(user.id)}}
+                          >
+                          <i className="tim-icons icon-simple-remove" />
+                        </Button></td>
                     </tr>  
                 )
               })}

@@ -50,20 +50,13 @@ const ClassesForm = (props) => {
 
       const handleFormSubmit = (e) =>{
         e.preventDefault();
-        
         var timeParts = values.startTime.split(':');
         today = new Date(values.date);
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
-
         today = dd + '/' + mm + '/' + yyyy;
-        
-        
         var dateParts = today.split('/');
-        //console.log(dateParts);
-        //console.log(new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]));
-        //console.log(new Date(values.date,timeParts[0],timeParts[1]).valueOf()/1000);
         props.callForm({...values,timeStamp:  new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0],timeParts[0],timeParts[1]).getTime()/1000, date: today});
         history.push({ pathname: "/admin/classes" });
       }
@@ -87,8 +80,8 @@ const ClassesForm = (props) => {
                         </label>
                         <Input placeholder="Coach Name" type="text" name="coach"
                           value={values.coach}
-                          //onChange={(e) => setValues(e.target.value)}
                           onChange={handleInputChange} 
+                          required
                            />
                       </FormGroup>
                     </Col>
@@ -96,13 +89,13 @@ const ClassesForm = (props) => {
                       <FormGroup>
                         <label>Capacity</label>
                         <Input
-                          defaultValue=""
                           name="capacity"
                           value={values.capacity}
-                          //onChange={(e) => setValues(e.target.value)}
+                          defaultValue=""
                           onChange={handleInputChangeNumber}  
                           placeholder="capacity"
                           type="text"
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -115,10 +108,10 @@ const ClassesForm = (props) => {
                           defaultValue=""
                           name="name"
                           value={values.name}
-                          //onChange={(e) => setValues(e.target.value)} 
                           onChange={handleInputChange} 
                           placeholder="Name"
                           type="text"
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -131,13 +124,8 @@ const ClassesForm = (props) => {
                           name="date"
                           value={values.date}  
                           onChange={handleInputChange}
-                          //dataFormat='DD/MM/YYYY'
+                          required
                         />
-                        {/* <DatePicker 
-                          name="date"
-                          onChange={(e)=>{setValues({...values,date: })}}
-                          dateFormat="DD/MM/YYYY"
-                        /> */}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -150,9 +138,9 @@ const ClassesForm = (props) => {
                         placeholder="Timings"
                         name="startTime"
                         value={values.startTime}
-                        //onChange={(e) => setValues(e.target.value)} 
                         onChange={handleInputChange} 
                         type="time"
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -163,10 +151,10 @@ const ClassesForm = (props) => {
                         defaultValue=""
                         placeholder="Timings"
                         name="endTime"
-                        value={values.endTime}
-                        //onChange={(e) => setValues(e.target.value)} 
+                        value={values.endTime} 
                         onChange={handleInputChange} 
                         type="time"
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -179,9 +167,9 @@ const ClassesForm = (props) => {
                         placeholder="Enter Class Description Here"
                         type="textarea"
                         name="description"
-                          value={values.description}
-                          //onChange={(e) => setValues(e.target.value)}  
-                          onChange={handleInputChange} 
+                        value={values.description} 
+                        onChange={handleInputChange} 
+                        required
                       />
                     </FormGroup>
                   </Col>

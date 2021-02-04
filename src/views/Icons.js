@@ -76,8 +76,6 @@ class Icons extends React.Component {
                       <td>
                         <Button
                             color="link"
-                            //id="tooltip457194718"
-                            //title=""
                             type="button"
                             onClick={()=>{if(window.confirm("Sure You Want To Delete This Class?"))this.deleteClass(classs.id)}}
                           >

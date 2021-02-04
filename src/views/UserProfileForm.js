@@ -96,8 +96,7 @@ function UserProfileForm(props) {
              result += characters.charAt(Math.floor(Math.random() * charactersLength));
           }
           
-          password = result;
-        //console.log(values.dob);
+        password = result;
         firebase.auth().createUserWithEmailAndPassword(values.email, password)
         .then((user) => {
           // Signed in 
@@ -196,16 +195,6 @@ function UserProfileForm(props) {
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="6">
-                      {/* <FormGroup>
-                        <label>Role</label>
-                        <Input
-                          //value={ props.user.userDetails.userRole }
-                          placeholder="Role"
-                          id="userRole"
-                          onChange={handleInputChange}
-                          type="text"
-                        />
-                      </FormGroup> */}
                     </Col>
                   </Row>
                   <CardHeader>
