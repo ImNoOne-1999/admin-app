@@ -54,5 +54,6 @@ ReactDOM.render(
     </AuthIsLoaded>
     </ReactReduxFirebaseProvider>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("root"),
+  
 );
