@@ -37,8 +37,16 @@ import {
   chartExample4,
 } from "variables/charts.js";
 
+var serviceAccount = require("./serviceAccountKey.json");
+    
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      databaseURL: "https://elad-training-default-rtdb.firebaseio.com"
+    });
+
 
 class Dashboard extends React.Component {
+  
 
   constructor(props){
     super(props);
@@ -47,21 +55,35 @@ class Dashboard extends React.Component {
     };
   };
 
+  
+
   deleteUser = (id) => {
     console.log(id);
-  //   var app = admin.initializeApp(firebase);
-  //   var ad = app.auth()
-  // .deleteUser(id)
-  // .then(() => {
-  //   console.log('Successfully deleted user');
-  //   const userRef = firebase.database().ref('Users').child(id);
-  //   userRef.remove();
-  //   this.props.history.push({ pathname: "/admin/dashboard" });
-  //   console.log('Successfully deleted user');
+
+  
+
+   //console.log(admin.auth());
+  var user =  admin
+  .auth()
+  // .then((userRecord) => {
+  //   // See the UserRecord reference doc for the contents of userRecord.
+  //   console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
   // })
   // .catch((error) => {
-  //   console.log('Error deleting user:', error);
+  //   console.log('Error fetching user data:', error);
   // });
+
+  .deleteUser(id)
+  .then(() => {
+    console.log('Successfully deleted user');
+    const userRef = firebase.database().ref('Users').child(id);
+    userRef.remove();
+    this.props.history.push({ pathname: "/admin/dashboard" });
+    console.log('Successfully deleted user');
+  })
+  .catch((error) => {
+    console.log('Error deleting user:', error);
+  });
     // user.delete().then(function() {
     //   // User deleted.
     
