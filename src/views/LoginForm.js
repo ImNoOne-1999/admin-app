@@ -44,25 +44,27 @@ class LoginForm extends Component {
       emailorPwdError = "invalid email";
     }
 
-    if(!(this.state.email=="eladtraining@gmail.com" && this.state.password=="eladTraining#0945")){
-      emailorPwdError = "Invalid email or password";
+    if(!(this.state.email=="rohitddd3@gmail.com" && this.state.password=="rohitddd")){
+      emailorPwdError = "Only Admin Can Login";
       
+    }
+    if(this.state.email=="rohitddd3@gmail.com" && this.state.password=="rohitddd"){
+      return true;
     }
 
     if (emailorPwdError) {
       this.setState({ emailorPwdError });
       return false;
     }
-    if(this.state.email=="eladtraining@gmail.com" && this.state.password=="eladTraining#0945"){
-      return true;
-    }
+    
     return false;
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.signIn(this.state);
-    console.log(this.props);
+    if(this.validate())
+      this.props.signIn(this.state);
+    //console.log(this.props);
   };
     render() {
       const { authError,auth } = this.props;
@@ -113,6 +115,7 @@ class LoginForm extends Component {
                   </div> */}
                   <div style={{ fontSize: 12, color: "red" }}>
                     { authError ? <p>{authError}</p> : null }
+                    { this.state.emailorPwdError ? <p>{this.state.emailorPwdError}</p> : null }
                   </div>
                   </CardBody>
                   

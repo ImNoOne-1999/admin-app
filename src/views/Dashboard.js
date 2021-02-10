@@ -7,6 +7,7 @@ import { NavLink,Redirect } from 'react-router-dom'
 import firebase from '../config/fbconfig';
 import { connect } from 'react-redux';
 import * as admin from 'firebase-admin';
+import { signOut } from '../store/actions/authActions';
 // reactstrap components
 import {
   Button,
@@ -37,12 +38,12 @@ import {
   chartExample4,
 } from "variables/charts.js";
 
-var serviceAccount = require("./serviceAccountKey.json");
+// var serviceAccount = require("./serviceAccountKey.json");
     
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      databaseURL: "https://elad-training-default-rtdb.firebaseio.com"
-    });
+//     admin.initializeApp({
+//       credential: admin.credential.cert(serviceAccount),
+//       databaseURL: "https://elad-training-default-rtdb.firebaseio.com"
+//     });
 
 
 class Dashboard extends React.Component {
@@ -51,54 +52,56 @@ class Dashboard extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      users: []
+      users: [],
+      userRole: ''
     };
   };
 
   
+  // deleteUser = (id) => {
+  //   console.log(id);
+  //  //console.log(admin.auth());
+  // var user =  admin
+  // .auth()
+  // // .then((userRecord) => {
+  // //   // See the UserRecord reference doc for the contents of userRecord.
+  // //   console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+  // // })
+  // // .catch((error) => {
+  // //   console.log('Error fetching user data:', error);
+  // // });
 
-  deleteUser = (id) => {
-    console.log(id);
-
-  
-
-   //console.log(admin.auth());
-  var user =  admin
-  .auth()
-  // .then((userRecord) => {
-  //   // See the UserRecord reference doc for the contents of userRecord.
-  //   console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+  // .deleteUser(id)
+  // .then(() => {
+  //   console.log('Successfully deleted user');
+  //   const userRef = firebase.database().ref('Users').child(id);
+  //   userRef.remove();
+  //   this.props.history.push({ pathname: "/admin/dashboard" });
+  //   console.log('Successfully deleted user');
   // })
   // .catch((error) => {
-  //   console.log('Error fetching user data:', error);
+  //   console.log('Error deleting user:', error);
   // });
-
-  .deleteUser(id)
-  .then(() => {
-    console.log('Successfully deleted user');
-    const userRef = firebase.database().ref('Users').child(id);
-    userRef.remove();
-    this.props.history.push({ pathname: "/admin/dashboard" });
-    console.log('Successfully deleted user');
-  })
-  .catch((error) => {
-    console.log('Error deleting user:', error);
-  });
-    // user.delete().then(function() {
-    //   // User deleted.
+  //   // user.delete().then(function() {
+  //   //   // User deleted.
     
-    // }).catch(function(error) {
-    //   // An error happened.
-    // });
+  //   // }).catch(function(error) {
+  //   //   // An error happened.
+  //   // });
     
-  }
+  // }
 
   componentDidMount() {
+    const { auth } = this.props;
     const userRef = firebase.database().ref('Users');
     userRef.on('value', (snapshot) => {
       let users = snapshot.val();
       let newState = [];
+      let userRole;
       for(let user in users) {
+        if(auth.uid==user){
+          userRole = users[user].userDetails.userRole;
+        }
         newState.push({
           id: user,
           userPackages: users[user].userPackages,
@@ -106,13 +109,20 @@ class Dashboard extends React.Component {
           userClasses: users[user].userClasses,
         });
       }
-      this.setState({
-        users: newState
+      const userRef1 = firebase.database().ref('Users').child(auth.uid).child("userDetails").child("userRole");
+        userRef1.on('value', (snapshot) => {
+          userRole = snapshot.val(); 
       });
-    });
+      this.setState({
+        users: newState,
+        userRole: userRole
+      });
+    })
   };
 render(){
-  const { auth } = this.props;
+  const { auth,signOut } = this.props;
+  
+  console.log(this.state.userRole);
   if (!auth.uid) return <Redirect to='/login' />
   return (
       <div className="content">
@@ -149,14 +159,14 @@ render(){
                           >
                             <i className="tim-icons icon-pencil" />
                           </Button></NavLink></td>
-                        <td>
+                        {/* <td>
                         <Button
                             color="link"
                             type="button"
                             onClick={()=>{if(window.confirm("Sure You Want To Delete This User?"))this.deleteUser(user.id)}}
                           >
                           <i className="tim-icons icon-simple-remove" />
-                        </Button></td>
+                        </Button></td> */}
                     </tr>  
                 )
               })}
@@ -180,4 +190,9 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut())
+  }
+}
 export default connect(mapStateToProps)(Dashboard);

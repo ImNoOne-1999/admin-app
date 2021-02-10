@@ -24,7 +24,7 @@ import {
 } from "reactstrap";
 
 function AdminNavbar(props) {
-  console.log(props);
+  //console.log(props);
   const { auth } = props;
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);

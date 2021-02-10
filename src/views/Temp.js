@@ -6,20 +6,18 @@ import {
     Card,
     CardHeader,
     CardBody,
-    CardTitle,
-    Table,
     FormGroup,
     Input,
     CardFooter,
     Button,
     Row,
-    Form,
     Col,
   } from "reactstrap";
 
 function Temp(props) {
 
     const history = useHistory();
+    console.log(props.user);
 
     const [values,setValues] = useState({
           dob: props.user.userDetails.dob,
@@ -52,9 +50,7 @@ function Temp(props) {
       const handleSubmit = (e) =>{
         e.preventDefault();
         const userRef = firebase.database().ref('Users');
-        const id = props.id;
-        // userRef.child(id).child('userDetails').update(values);
-        // userRef.child(id).child('userPackages').update(values1);
+        //userRef.child(props.id).push({ userDetails: values, userPackages: values1 });
         history.push({ pathname: "/" });
       }
 
@@ -73,7 +69,7 @@ function Temp(props) {
                       <FormGroup>
                         <label>Full Name</label>
                         <Input
-                          defaultValue={ props.user.userDetails.fullName }
+                          defaultValue={ values.fullName }
                           placeholder="Full Name"
                           type="text"
                           id="fullName"
@@ -89,7 +85,7 @@ function Temp(props) {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input defaultValue={ props.user.userDetails.email } placeholder="Email" type="email" id="email"
+                        <Input defaultValue={ values.email } placeholder="Email" type="email" id="email"
                           onChange={handleInputChange} />
                       </FormGroup>
                     </Col>
@@ -97,7 +93,7 @@ function Temp(props) {
                       <FormGroup>
                         <label>Phone (disabled)</label>
                         <Input
-                          defaultValue={ props.user.userDetails.phone }
+                          defaultValue={ values.phone }
                           disabled
                           placeholder="phone"
                           type="text"
@@ -110,7 +106,7 @@ function Temp(props) {
                       <FormGroup>
                         <label>Date of Birth</label>
                         <Input
-                          defaultValue={ props.user.userDetails.dob }
+                          defaultValue={ values.dob }
                           id="dob"
                           onChange={handleInputChange}
                           placeholder="dob"
@@ -140,7 +136,7 @@ function Temp(props) {
                     <FormGroup>
                       <label>Start Date</label>
                       <Input
-                        defaultValue={ props.user.userPackages.startDate && props.user.userPackages.startDate ? props.user.userPackages.startDate : " "}
+                        //defaultValue={ values1.startDate }
                         type="date"
                         name="startDate"
                           onChange={handleInputChange}
@@ -151,10 +147,10 @@ function Temp(props) {
                     <FormGroup>
                       <label>End Date</label>
                       <Input
-                        defaultValue={ props.user.userPackages.endDate && props.user.userPackages.endDate ? props.user.userPackages.endDate : " "}
+                        //defaultValue={ props.user.userPackages.endDate && props.user.userPackages.endDate ? props.user.userPackages.endDate : " "}
                         type="date"
                         name="endDate"
-                          onChange={handleInputChange}
+                        onChange={handleInputChange}
                       />
                     </FormGroup>
                   </Col>
@@ -164,7 +160,7 @@ function Temp(props) {
                     <FormGroup>
                       <label>Package Id</label>
                       <Input
-                        defaultValue={ props.user.userPackages.packageId && props.user.userPackages.packageId ? props.user.userPackages.packageId : "Package Id"}
+                        defaultValue={ values1.packageId }
                         type="text"
                         name="packageId"
                           onChange={handleInputChange}
@@ -175,7 +171,7 @@ function Temp(props) {
                     <FormGroup>
                       <label>Sessions</label>
                       <Input
-                        defaultValue={ props.user.userPackages.sessions && props.user.userPackages.sessions ? props.user.userPackages.sessions : "Sessions Req"}
+                        defaultValue={ values1.sessions }
                         type="number"
                         name="sessions"
                           onChange={handleInputChange}
