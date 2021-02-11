@@ -1,42 +1,27 @@
-import React, { useState, useEffect } from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
+import React from "react";
 import { NavLink,Redirect } from 'react-router-dom'
 import firebase from '../config/fbconfig';
 import { connect } from 'react-redux';
-import * as admin from 'firebase-admin';
-import { signOut } from '../store/actions/authActions';
+//import * as admin from 'firebase-admin';
+//import { signOut } from '../store/actions/authActions';
 // reactstrap components
 import {
   Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
   CardTitle,
   CardFooter,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
   Table,
-  Row,
-  Col,
-  UncontrolledTooltip,
 } from "reactstrap";
 
-// core components
-import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
-} from "variables/charts.js";
+// // core components
+// import {
+//   chartExample1,
+//   chartExample2,
+//   chartExample3,
+//   chartExample4,
+// } from "variables/charts.js";
 
 // var serviceAccount = require("./serviceAccountKey.json");
     
@@ -120,7 +105,7 @@ class Dashboard extends React.Component {
     })
   };
 render(){
-  const { auth,signOut } = this.props;
+  const { auth } = this.props;
   
   console.log(this.state.userRole);
   if (!auth.uid) return <Redirect to='/login' />
@@ -190,9 +175,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signOut: () => dispatch(signOut())
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     signOut: () => dispatch(signOut())
+//   }
+// }
 export default connect(mapStateToProps)(Dashboard);

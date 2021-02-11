@@ -39,18 +39,50 @@ function Temp(props) {
         setValues({
           ...values,
           [e.target.id]: e.target.value
-        })
-        setValues1({
-            ...values1,
-            [e.target.name]: e.target.value
-          })
+        });
         //console.log(this.state.users[0].user.userPackage);
       }
 
+      var today;
+      const handleInputChangeDOB = (e) =>{
+        today = new Date(e.target.value);
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = dd + '/' + mm + '/' + yyyy;
+        //handleInputChangeDOB(today);
+        setValues({
+          ...values,
+          dob: today
+        });
+      }
+
+      const handleInputChangeNumber = (e) =>{
+        setValues1 ({
+            ...values1,
+            [e.target.name]: parseInt(e.target.value)
+        }) 
+      }
+
+      const handleChangeDate = (e) =>{
+        setValues1({
+          ...values1,
+          [e.target.name]: new Date(e.target.value).valueOf()/1000
+        });
+        console.log(values1);
+      }
+
+      const handleInputChangePackage = (e) =>{
+        setValues1({
+          ...values1,
+          [e.target.name]: e.target.value
+        });
+      }
       const handleSubmit = (e) =>{
         e.preventDefault();
         const userRef = firebase.database().ref('Users');
-        //userRef.child(props.id).push({ userDetails: values, userPackages: values1 });
+        userRef.child(props.id).update({ userDetails: values, userPackages: values1 });
         history.push({ pathname: "/" });
       }
 
@@ -75,6 +107,7 @@ function Temp(props) {
                           id="fullName"
                           //onChange={(e)=>this.setState({userDetails: { fullName: e.target.value}})}
                           onChange={handleInputChange}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -86,7 +119,7 @@ function Temp(props) {
                           Email address
                         </label>
                         <Input defaultValue={ values.email } placeholder="Email" type="email" id="email"
-                          onChange={handleInputChange} />
+                          onChange={handleInputChange} required />
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="6">
@@ -97,6 +130,7 @@ function Temp(props) {
                           disabled
                           placeholder="phone"
                           type="text"
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -108,10 +142,12 @@ function Temp(props) {
                         <Input
                           defaultValue={ values.dob }
                           id="dob"
-                          onChange={handleInputChange}
+                          //onChange={handleInputChange}
+                          onChange={(e)=>{handleInputChange(e); handleInputChangeDOB(e);}}
                           placeholder="dob"
                           type="date"
-                          disabled
+                          //disabled
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -139,7 +175,8 @@ function Temp(props) {
                         //defaultValue={ values1.startDate }
                         type="date"
                         name="startDate"
-                          onChange={handleInputChange}
+                        onChange={handleChangeDate}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -150,7 +187,8 @@ function Temp(props) {
                         //defaultValue={ props.user.userPackages.endDate && props.user.userPackages.endDate ? props.user.userPackages.endDate : " "}
                         type="date"
                         name="endDate"
-                        onChange={handleInputChange}
+                        onChange={handleChangeDate}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -163,7 +201,8 @@ function Temp(props) {
                         defaultValue={ values1.packageId }
                         type="text"
                         name="packageId"
-                          onChange={handleInputChange}
+                        onChange={handleInputChangePackage}
+                        required
                       />
                     </FormGroup>
                   </Col>
@@ -174,7 +213,8 @@ function Temp(props) {
                         defaultValue={ values1.sessions }
                         type="number"
                         name="sessions"
-                          onChange={handleInputChange}
+                        onChange={handleInputChangeNumber}
+                        required
                       />
                     </FormGroup>
                   </Col>

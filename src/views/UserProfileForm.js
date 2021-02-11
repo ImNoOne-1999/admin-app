@@ -4,22 +4,18 @@ import {useHistory} from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
-import * as admin from 'firebase-admin';
-import {v1 as uuid} from 'uuid';
+//import {v1 as uuid} from 'uuid';
 
 // reactstrap components
 import {
     Card,
     CardHeader,
     CardBody,
-    CardTitle,
-    Table,
     FormGroup,
     Input,
     CardFooter,
     Button,
     Row,
-    Form,
     Col,
   } from "reactstrap";
 
@@ -86,7 +82,6 @@ function UserProfileForm(props) {
           [e.target.name]: e.target.value
         });
       }
-      var userid = "";
       const createAccount = () => {
 
           var result           = '';
@@ -105,7 +100,7 @@ function UserProfileForm(props) {
           userRef.child(firebase.auth().currentUser.uid).set({ userDetails: values, userPackages: values1 });       
         })
         .catch((error) => {
-          var errorCode = error.code;
+          //var errorCode = error.code;
           var errorMessage = error.message;
           console.log(errorMessage);
         });

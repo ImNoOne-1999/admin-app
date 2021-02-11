@@ -1,23 +1,18 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import {v1 as uuid} from 'uuid';
 
 // reactstrap components
 import {
     Card,
     CardHeader,
     CardBody,
-    CardTitle,
-    Table,
     FormGroup,
     Input,
     CardFooter,
     Button,
     Row,
-    Form,
     Modal,
     ModalBody,
-    ModalFooter,
     Col,
   } from "reactstrap";
 

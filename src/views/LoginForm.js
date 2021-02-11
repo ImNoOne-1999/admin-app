@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink,Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signIn } from '../store/actions/authActions';
 //import Avatar from '@material-ui/core/Avatar';
@@ -11,11 +11,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Height } from '@material-ui/icons';
+//import { Height } from '@material-ui/icons';
 
 // import {
 //     Card,

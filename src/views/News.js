@@ -1,24 +1,19 @@
-import React, {useState} from "react";
+import React from "react";
 import firebase from '../config/fbconfig';
 import NewsForm from './NewsForm';
-import { Redirect,NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {
   Card,
   CardHeader,
   CardBody,
-  CardTitle,
-  Table,
-  FormGroup,
-  Input,
   CardFooter,
   Button,
   Row,
   Modal,
   ModalBody,
   CardImg,
-  Form,
   Col,
 } from "reactstrap";
 

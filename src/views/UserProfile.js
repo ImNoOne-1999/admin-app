@@ -1,21 +1,13 @@
 import React from "react";
 import firebase from '../config/fbconfig';
-import UserProfileForm from './UserProfileForm';
+//import UserProfileForm from './UserProfileForm';
 import Temp from './Temp';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardText,
-  FormGroup,
-  Form,
-  Input,
+  
   Row,
   Col,
 } from "reactstrap";
@@ -31,13 +23,13 @@ class UserProfile extends React.Component {
   };
 
   handleChange = (e) =>{
-    const id = this.props.match.params.id;
+    //const id = this.props.match.params.id;
   }
 
   handleSubmit = (e) =>{
     e.preventDefault();
-    const userRef = firebase.database().ref('Users');
-    const id = this.props.match.params.id;
+    // const userRef = firebase.database().ref('Users');
+    // const id = this.props.match.params.id;
     this.props.history.push('/');
   }
 

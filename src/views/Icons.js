@@ -1,6 +1,6 @@
 import React from "react";
 // reactstrap components
-import { Card, CardHeader,CardTitle,Table,Button,CardFooter, CardBody, Row, Col } from "reactstrap";
+import { Card, CardHeader,CardTitle,Table,Button,CardFooter, CardBody } from "reactstrap";
 import firebase from '../config/fbconfig';
 import { NavLink,Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';

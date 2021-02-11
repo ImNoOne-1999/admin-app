@@ -1,22 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import firebase from '../config/fbconfig';
 import ClassesForm from './ClassesForm';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Table,
-  FormGroup,
-  Input,
-  CardFooter,
-  Button,
-  Row,
-  Form,
-  Col,
-} from "reactstrap";
 
 
 

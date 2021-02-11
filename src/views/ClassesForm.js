@@ -1,20 +1,17 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {v1 as uuid} from 'uuid';
-import DatePicker from 'reactstrap-date-picker';
+//import DatePicker from 'reactstrap-date-picker';
 // reactstrap components
 import {
     Card,
     CardHeader,
     CardBody,
-    CardTitle,
-    Table,
     FormGroup,
     Input,
     CardFooter,
     Button,
     Row,
-    Form,
     Col,
   } from "reactstrap";
 
