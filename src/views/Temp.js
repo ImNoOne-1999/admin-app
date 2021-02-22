@@ -25,12 +25,15 @@ function Temp(props) {
           fullName: props.user.userDetails.fullName,
           imageUrl: props.user.userDetails.imageUrl,
           phone: props.user.userDetails.phone,
-          //userRole: props.user.userDetails.userRole
+          height: props.user.userDetails.height,
+          weight: props.user.userDetails.weight,
+          gender: props.user.userDetails.gender,
+          userRole: "user"
       });
 
       const [values1,setValues1] = useState({
           endDate: props.user.userPackages.endDate,
-          //active: props.user.userPackages.active,
+          active: true,
           packageId: props.user.userPackages.packageId,
           sessions: props.user.userPackages.sessions,
           startDate: props.user.userPackages.startDate
@@ -138,7 +141,27 @@ function Temp(props) {
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
-                        <label>Date of Birth</label>
+                        <label>
+                          Height
+                        </label>
+                        <Input defaultValue={ values.height } placeholder="Height" type="text" id="height"
+                          onChange={handleInputChange} required />
+                      </FormGroup>
+                    </Col>
+                    <Col className="pl-md-1" md="6">
+                      <FormGroup>
+                      <label>
+                          Weight
+                        </label>
+                        <Input defaultValue={ values.weight } placeholder="Weight" type="text" id="weight"
+                          onChange={handleInputChange} required />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="pr-md-1" md="6">
+                      <FormGroup>
+                        <label>Date of Birth ({ values.dob })</label>
                         <Input
                           defaultValue={ values.dob }
                           id="dob"

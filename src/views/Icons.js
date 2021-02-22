@@ -22,18 +22,52 @@ class Icons extends React.Component {
 
   componentDidMount() {
     const classesRef = firebase.database().ref('Classes');
+    const userRef = firebase.database().ref('Users');
     classesRef.on('value', (snapshot) => {
       let classes = snapshot.val();
       let newClassState = [];
+      let usersJoinedClass = [];
+      let userNames = [];
+
+      for(let classs in classes) {
+        
+        usersJoinedClass.push(classes[classs].usersJoined);
+      }
+      
+      for(let users of usersJoinedClass){
+        //console.log(users);
+        if(users){
+          let userTemp = [];
+          for(let user of users){
+            if(user){
+              let userRef1 = userRef.child(user).child("userDetails").child("fullName");
+              userRef1.on('value', (snapshot) => {
+                
+                userTemp.push(snapshot.val()); 
+              });
+            }
+          }
+          userNames.push(userTemp);
+        }
+        else{
+          userNames.push([]);
+        }   
+      }
       
       for(let classs in classes) {
+        
+        //usersJoinedClass.push(classes[classs].usersJoined);
+        
         newClassState.push({
           id: classs,
           classs: classes[classs],
-          usersJoined: snapshot.child(classs).child("usersJoined").numChildren()
+          usersJoined: snapshot.child(classs).child("usersJoined").numChildren(),
+          users: userNames
         });
       }
-      //console.log(newClassState);
+      
+      
+      console.log(userNames);
       this.setState({
         classes: newClassState
       });
@@ -42,6 +76,14 @@ class Icons extends React.Component {
   render(){
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to='/login' />
+    // let optionItems = this.state.classes.map((classs,key) =>
+    //   <option key={ classs.users[key] }>{ classs.users[key] }</option>);
+  //   let optionItems = countries.length > 0
+	// 	&& countries.map((item, i) => {
+	// 	return (
+	// 		<option key={i} value={item.id}>{item.name}</option>
+	// 	)
+	// }, this);
   return (
     <>
       <div className="content">
@@ -56,6 +98,7 @@ class Icons extends React.Component {
                   <th>coach</th>
                   <th>name</th>
                   <th>description</th>
+                  <th>users joined</th>
                   <th>timings</th>
                   <th>date</th>
                   <th>capacity</th>
@@ -63,12 +106,15 @@ class Icons extends React.Component {
                 </tr>
               </thead>
               <tbody>
-              {this.state.classes.map((classs) => {
+                
+              {this.state.classes.map((classs,key) => {
+                
                 return (
                     <tr>
                       <td>{ classs.classs.coach }</td>
                       <td>{ classs.classs.name }</td>
                       <td>{ classs.classs.description }</td>
+                      <td><p>{ classs.users[key].join(", ") }</p></td>
                       <td>{ classs.classs.startTime } - { classs.classs.endTime }</td>
                       <td>{ classs.classs.date }</td>
                       <td>{ classs.classs.capacity }</td>
